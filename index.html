@@ -163,14 +163,14 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
   <section class="stage" id="s4" hidden>
     <span class="tag">Application accepted</span>
     <h2 id="fin"></h2>
-    <p class="note">Application link kekkura nu sonna, so indha surprise. Naan open pannadhu un oru slot ku dhaan, vera yaarukum illa.</p>
+    <p class="note">Application link ketila, so inthu than antha link uh... Naan open pannadhu un oru slot ku dhaan, vera yaarukum illa.</p>
     <p>First class is whenever you say. Bring zero cricket knowledge. Rishi brings the bat, the ball, and a lollipop. And you still get a "Heyyyy" 😉</p>
     <div class="sec">Rishi's letter for you 💜</div>
     <div class="letter" id="letter"></div>
     <div class="promise">
       <span class="tag">Remember this one thing</span>
-      <p>Apram oru thing, unkuda naan yeppovume irupen, nee <b>"poo"</b> nu soldra varaikum.</p>
-      <p>Mainly, cricket mattum illa. Unnaku Tamil solli kudukkuriyo illayo, unnoda serndhu naanum colourful ah <b>Thanglish</b> pesalaame, life long 💜</p>
+      <p>Aprm onnu sollanum, unkuda naan yeppovume irupen, nee <b>"poo"</b> nu soldra varaikum.</p>
+      <p>Mainly, cricket mattum illa. Unnaku Tamil solli kudukkudukurano illayo,But, unnoda serndhu naanum Kolar ah <b>Thanglish</b> pesalaam neeyum naanam, life long 💜</p>
     </div>
     <div class="sec">One more surprise. Scratch here 👇</div>
     <div class="scratch" id="scr">
@@ -247,7 +247,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
       ['Aamam, bayama thaan irukku',0]]}
   ];
   var qi=0,locked=false;
-  var wail=['Hehe, pudikka mudiyala 😜','Cannot touch 😂','Try again 🤭','Enna da ithu 😂','Athu un answer illa 😌','Oduren oduren 🏃'];
+  var wail=['Hehe, pudikka mudiyala 😜','Cannot touch 😂','Try again 🤭','Enna dii ithu 😂','Athu un answer illa 😌','Oduren oduren 🏃'];
   function startQuiz(){
     qi=0;show('sq');ask();
   }
@@ -318,7 +318,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
   };
   var ltimer;
   function typeLetter(){
-    var t=name+',\n\nCricket oru bahana dhaan. Unna kooda time spend panna oru reason. Nee ketkura ovvoru doubt kum 1000 vaati kooda kovam illama solla naan ready.\n\nNee eppadi irundhaalum, enakku nee dhaan everything 💜\n\n– Rishi';
+    var t=name+',\n\nCricket ennaku professinal aah rmba pudikum but ennaku personal pudikurathu ....when ennaku pudicha person kuda naan play pannanum poothu mattum than...so, Neenga rishi kuda play panna varuvingala? aprm...Un kooda time spend panna oru reason poothum... Nee ketkura ovvoru doubt kum 1000 vaati kooda kovam illama solla naan ready...but apo apo madam enkitta knjm sirichingana ennakum yen health kum knjm nalla erukum nga aprm innum neruya eruku solla but ithu application ngratha maranthutu naan ivlo type pannitan nga but ithu poothum inth application ku...[\n\nNee yeppadi irundhaalum, enakku nee dhaan everything,etc.... 💜]\n\n– Rishi';
     var el=$('letter'),i=0;el.textContent='';clearInterval(ltimer);
     ltimer=setInterval(function(){el.textContent=t.slice(0,++i);if(i>=t.length)clearInterval(ltimer)},45);
   }
