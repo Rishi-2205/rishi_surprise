@@ -308,7 +308,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
     gi++;
     if(gi<3){setTimeout(gball,1500)}
     else{setTimeout(function(){
-      $('gfb').textContent=(gsix?gsix+' sixes! ':'0 sixes. ')+'Doesn't matter. Rishi still gives you a lollipop 🍭';
+      $('gfb').textContent=(gsix?gsix+' sixes! ':'0 sixes. ')+'Does not matter. Rishi still gives you a lollipop 🍭';
       $('gnext').hidden=false;
     },1400)}
   };
@@ -318,13 +318,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
   };
   var ltimer;
   function typeLetter(){
-    var t=name+',
-
-Cricket oru bahana dhaan. Unna kooda time spend panna oru reason. Nee ketkura ovvoru doubt kum 1000 vaati kooda kovam illama solla naan ready.
-
-Nee eppadi irundhaalum, enakku nee dhaan everything 💜
-
-– Rishi';
+    var t=name+',\n\nCricket oru bahana dhaan. Unna kooda time spend panna oru reason. Nee ketkura ovvoru doubt kum 1000 vaati kooda kovam illama solla naan ready.\n\nNee eppadi irundhaalum, enakku nee dhaan everything 💜\n\n– Rishi';
     var el=$('letter'),i=0;el.textContent='';clearInterval(ltimer);
     ltimer=setInterval(function(){el.textContent=t.slice(0,++i);if(i>=t.length)clearInterval(ltimer)},45);
   }
