@@ -1,18 +1,21 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Cricket Slot Application</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap">
 <style>
 /* Layout: one centered phone-sized card, stages swap in place. Look: floodlit night pitch, single dark theme by choice. */
 :root{
-  --bg:#0b1a12;
-  --pitch:#14301f;
-  --card:#10261a;
-  --fg:#f3efe2;
-  --muted:#a7b8aa;
-  --ball:#e0413a;
-  --gold:#f5c542;
-  --line:#2a4a36;
+  --bg:#150b2b;
+  --pitch:#241546;
+  --card:#1c0f3a;
+  --fg:#f7f1ff;
+  --muted:#bba9dc;
+  --ball:#ff5fa8;
+  --gold:#e6b7ff;
+  --line:#46307a;
   --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
   --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:dark;
@@ -25,11 +28,11 @@ body{
   padding-left:max(16px,env(safe-area-inset-left,0px));
   padding-right:max(16px,env(safe-area-inset-right,0px));
   background-image:
-    radial-gradient(ellipse at 50% -10%,rgba(245,197,66,.18),transparent 55%),
+    radial-gradient(ellipse at 50% -10%,rgba(168,85,247,.32),transparent 55%),
     repeating-linear-gradient(90deg,transparent 0 56px,rgba(255,255,255,.025) 56px 112px);
   background-attachment:fixed;
 }
-main{max-width:460px;margin:0 auto;min-height:calc(100vh - 48px);display:flex;flex-direction:column;justify-content:center}
+main{position:relative;z-index:1;max-width:460px;margin:0 auto;min-height:calc(100vh - 48px);display:flex;flex-direction:column;justify-content:center}
 .stage{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 22px;display:flex;flex-direction:column;gap:18px;animation:in .5s ease both}
 @keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
@@ -38,16 +41,16 @@ h1{font-size:clamp(32px,9vw,42px)}
 h2{font-size:clamp(28px,8vw,36px)}
 p{margin:0;color:var(--muted)}
 p b{color:var(--fg)}
-.ball{width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f2736c,var(--ball) 60%,#9b221d);position:relative;flex:none;animation:spin 6s linear infinite}
+.ball{width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff9cc9,var(--ball) 60%,#a3226a);position:relative;flex:none;animation:spin 6s linear infinite}
 .ball::before,.ball::after{content:"";position:absolute;left:50%;top:6px;bottom:6px;width:0;border-left:2px dashed rgba(255,255,255,.7);transform:translateX(-10px) rotate(0)}
 .ball::after{transform:translateX(8px)}
 @keyframes spin{to{transform:rotate(360deg)}}
 .row{display:flex;gap:16px;align-items:center}
 label{font-size:14px;color:var(--muted)}
 input{width:100%;font:inherit;font-size:18px;padding:14px 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--pitch);color:var(--fg)}
-input::placeholder{color:#6f8576}
+input::placeholder{color:#8a77b3}
 input:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-button{font:inherit;font-weight:700;font-size:17px;padding:15px 18px;border-radius:12px;border:0;cursor:pointer;background:var(--gold);color:#241a00;transition:transform .15s}
+button{font:inherit;font-weight:700;font-size:17px;padding:15px 18px;border-radius:12px;border:0;cursor:pointer;background:var(--gold);color:#2a0f4d;transition:transform .15s}
 button:active{transform:scale(.97)}
 button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--line)}
 .btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center;min-height:56px;position:relative}
@@ -58,17 +61,27 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
 .list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .list li{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:12px;background:var(--pitch);border:1px solid var(--line);opacity:0;transform:translateX(-10px);transition:all .45s ease}
 .list li.on{opacity:1;transform:none}
-.list li span.t{flex:none;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#241a00;display:grid;place-items:center;font-size:14px;font-weight:800}
+.list li span.t{flex:none;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#2a0f4d;display:grid;place-items:center;font-size:14px;font-weight:800}
 .list li div{min-width:0}
 .list li small{display:block;color:var(--muted);font-size:13px}
 .sec{font-family:var(--display);font-size:20px;font-weight:800;margin:6px 0 -4px}
 .note{border-left:3px solid var(--ball);padding:4px 0 4px 14px;color:var(--fg)}
 .stamp{align-self:flex-start;font-family:var(--display);font-weight:800;color:var(--gold);border:3px solid var(--gold);border-radius:10px;padding:4px 12px;transform:rotate(-5deg);letter-spacing:.06em}
+.heart{position:fixed;bottom:-30px;z-index:0;pointer-events:none;opacity:.55;animation:rise linear forwards}
+@keyframes rise{to{transform:translateY(-115vh) rotate(20deg);opacity:0}}
+.track{position:relative;height:84px;border-radius:14px;background:var(--pitch);border:1px solid var(--line);overflow:hidden}
+.zone{position:absolute;left:38%;width:24%;top:0;bottom:0;background:rgba(230,183,255,.18);border-inline:2px dashed var(--gold)}
+.zone::after{content:"SIX ZONE";position:absolute;bottom:6px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.14em;color:var(--gold);font-weight:700}
+#gb{position:absolute;top:28px;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff9cc9,var(--ball) 60%,#a3226a)}
+.promise{display:flex;flex-direction:column;gap:10px;padding:18px 16px;border-radius:16px;background:linear-gradient(160deg,#3a1d70,#24124a);border:1.5px solid var(--gold);font-size:17px}
+.promise p{color:var(--fg)}
+.promise b{color:var(--gold)}
+.letter{white-space:pre-wrap;color:var(--fg);background:var(--pitch);border:1px solid var(--line);border-radius:14px;padding:16px;min-height:9em;font-size:16px;line-height:1.6}
 .opts{display:flex;flex-direction:column;gap:12px;padding:4px 14px}
 .opt{background:var(--pitch);color:var(--fg);border:1.5px solid var(--line);text-align:left;font-weight:500;font-size:16px;transition:transform .25s cubic-bezier(.3,1.6,.5,1),background .2s}
-.opt.ok:hover{background:#1d4a30}
+.opt.ok:hover{background:#35205f}
 .opt.dodge{border-style:dashed}
-.opt.picked{background:var(--gold);color:#241a00;border-color:var(--gold)}
+.opt.picked{background:var(--gold);color:#2a0f4d;border-color:var(--gold)}
 .fb{min-height:3em;color:var(--gold);font-weight:500}
 .scratch{position:relative;height:170px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
 .prize{position:absolute;inset:0;display:flex;flex-direction:column;gap:6px;justify-content:center;padding:14px 16px;background:var(--pitch);font-size:15px;color:var(--fg)}
@@ -136,11 +149,28 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
     </div>
   </section>
 
+  <section class="stage" id="sg" hidden>
+    <span class="tag" id="gn">Net practice</span>
+    <h2>First lesson: hit a six 🏏</h2>
+    <p>Ball vara pogudhu. Ball <b>six zone</b> ku vara pothu HIT button ah press pannu.</p>
+    <div class="track"><div class="zone"></div><div id="gb"></div></div>
+    <div class="btns"><button id="hit" type="button">HIT 🏏</button></div>
+    <p class="fb" id="gfb"></p>
+    <div class="btns" id="gnext" hidden><button id="gcont" type="button">Continue →</button></div>
+  </section>
+
   <section class="stage" id="s4" hidden>
     <span class="tag">Application accepted</span>
     <h2 id="fin"></h2>
     <p class="note">Application link kekkura nu sonna, so indha surprise. Naan open pannadhu un oru slot ku dhaan, vera yaarukum illa.</p>
     <p>First class is whenever you say. Bring zero cricket knowledge. Rishi brings the bat, the ball, and a lollipop. And you still get a "Heyyyy" 😉</p>
+    <div class="sec">Rishi's letter for you 💜</div>
+    <div class="letter" id="letter"></div>
+    <div class="promise">
+      <span class="tag">Remember this one thing</span>
+      <p>Apram oru thing, unkuda naan yeppovume irupen, nee <b>"poo"</b> nu soldra varaikum.</p>
+      <p>Mainly, cricket mattum illa. Unnaku Tamil solli kudukkuriyo illayo, unnoda serndhu naanum colourful ah <b>Thanglish</b> pesalaame, life long 💜</p>
+    </div>
     <div class="sec">One more surprise. Scratch here 👇</div>
     <div class="scratch" id="scr">
       <div class="prize">
@@ -158,7 +188,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
 (function(){
   var $=function(id){return document.getElementById(id)};
   var name='';
-  function show(id){['s1','s2','sq','s3','s4'].forEach(function(s){$(s).hidden=s!==id});window.scrollTo(0,0)}
+  function show(id){['s1','s2','sq','s3','sg','s4'].forEach(function(s){$(s).hidden=s!==id});window.scrollTo(0,0)}
 
   var msgs=[
     'Checking 8,00,00,000 applicants…',
@@ -254,6 +284,60 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
     });
   }
 
+  // Mini game
+  var gi=0,gsix=0,graf,gt0,gpos=0,gbusy=false;
+  var good=['SIX! 🎉 Rishi claps 👏','Sixer! Pro player maadhiri 😎','Boom! Stadium ey aadudhu 🔥'];
+  var bad=['Miss. Kovam illa, again 😌','Konjam late. Rishi patient ah irukkaan 🫠','Almost! 1000 vaati try pannalam 😉'];
+  function gball(){
+    $('gn').textContent='Net practice · Ball '+(gi+1)+' of 3';
+    $('gfb').textContent='Ball varudhu…';gbusy=false;$('hit').disabled=false;$('gnext').hidden=true;
+    gt0=performance.now();cancelAnimationFrame(graf);
+    var sp=620-gi*110;
+    (function f(t){
+      gpos=(Math.sin((t-gt0)/sp)+1)/2;
+      $('gb').style.left='calc('+gpos+' * (100% - 28px))';
+      graf=requestAnimationFrame(f);
+    })(gt0);
+  }
+  function startGame(){gi=0;gsix=0;show('sg');gball()}
+  $('hit').onclick=function(){
+    if(gbusy)return;gbusy=true;cancelAnimationFrame(graf);$('hit').disabled=true;
+    var six=gpos>.36&&gpos<.64;
+    if(six){gsix++;$('gfb').textContent=good[gi%3];confetti()}else{$('gfb').textContent=bad[gi%3]}
+    gi++;
+    if(gi<3){setTimeout(gball,1500)}
+    else{setTimeout(function(){
+      $('gfb').textContent=(gsix?gsix+' sixes! ':'0 sixes. ')+'Doesn't matter. Rishi still gives you a lollipop 🍭';
+      $('gnext').hidden=false;
+    },1400)}
+  };
+  $('gcont').onclick=function(){
+    $('fin').textContent='Slot confirmed, '+name+' 🏏';
+    show('s4');confetti();initScratch();typeLetter();
+  };
+  var ltimer;
+  function typeLetter(){
+    var t=name+',
+
+Cricket oru bahana dhaan. Unna kooda time spend panna oru reason. Nee ketkura ovvoru doubt kum 1000 vaati kooda kovam illama solla naan ready.
+
+Nee eppadi irundhaalum, enakku nee dhaan everything 💜
+
+– Rishi';
+    var el=$('letter'),i=0;el.textContent='';clearInterval(ltimer);
+    ltimer=setInterval(function(){el.textContent=t.slice(0,++i);if(i>=t.length)clearInterval(ltimer)},45);
+  }
+
+  // Floating hearts
+  setInterval(function(){
+    if(document.hidden||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    var h=document.createElement('span');h.className='heart';
+    h.textContent=['💜','💗','🏏','💜'][Math.floor(Math.random()*4)];
+    h.style.left=Math.random()*100+'vw';h.style.fontSize=(14+Math.random()*16)+'px';
+    h.style.animationDuration=(7+Math.random()*6)+'s';
+    document.body.appendChild(h);setTimeout(function(){h.remove()},14000);
+  },1100);
+
   // Scratch card
   var sc=$('sc'),sg=sc.getContext('2d'),scratching=false,cleared=false;
   function initScratch(){
@@ -261,7 +345,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
     sc.width=w;sc.height=h;cleared=false;sc.style.opacity=1;sc.style.pointerEvents='auto';
     var g=sg.createLinearGradient(0,0,w,h);g.addColorStop(0,'#b9bec0');g.addColorStop(.5,'#e8ebec');g.addColorStop(1,'#9ea5a8');
     sg.globalCompositeOperation='source-over';sg.fillStyle=g;sg.fillRect(0,0,w,h);
-    sg.fillStyle='#5a6266';sg.font='700 18px DM Sans, sans-serif';sg.textAlign='center';
+    sg.fillStyle='#4b3a70';sg.font='700 18px DM Sans, sans-serif';sg.textAlign='center';
     sg.fillText('Scratch here 🏏',w/2,h/2+6);
   }
   function scrub(e){
@@ -326,7 +410,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
 
   $('yes').onclick=function(){
     $('fin').textContent='Slot confirmed, '+name+' 🏏';
-    show('s4');confetti();initScratch();
+    startGame();
   };
   $('again').onclick=function(){
     no.removeAttribute('style');no.textContent='Decline';
@@ -339,7 +423,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
   addEventListener('resize',fit);fit();
   function confetti(){
     if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-    var cols=['#e0413a','#f5c542','#f3efe2','#5fd08a'];
+    var cols=['#ff5fa8','#e6b7ff','#f7f1ff','#a855f7'];
     for(var i=0;i<140;i++)parts.push({x:innerWidth/2,y:innerHeight/3,vx:(Math.random()-.5)*14,vy:Math.random()*-12-2,s:4+Math.random()*6,c:cols[i%4],r:Math.random()*6});
     cancelAnimationFrame(raf);tick();
   }
@@ -351,5 +435,3 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
   }
 })();
 </script>
-
-</body></html>
