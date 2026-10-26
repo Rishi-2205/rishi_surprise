@@ -1,0 +1,355 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Cricket Slot Application</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+/* Layout: one centered phone-sized card, stages swap in place. Look: floodlit night pitch, single dark theme by choice. */
+:root{
+  --bg:#0b1a12;
+  --pitch:#14301f;
+  --card:#10261a;
+  --fg:#f3efe2;
+  --muted:#a7b8aa;
+  --ball:#e0413a;
+  --gold:#f5c542;
+  --line:#2a4a36;
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{
+  margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 var(--body);
+  padding-block:24px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  background-image:
+    radial-gradient(ellipse at 50% -10%,rgba(245,197,66,.18),transparent 55%),
+    repeating-linear-gradient(90deg,transparent 0 56px,rgba(255,255,255,.025) 56px 112px);
+  background-attachment:fixed;
+}
+main{max-width:460px;margin:0 auto;min-height:calc(100vh - 48px);display:flex;flex-direction:column;justify-content:center}
+.stage{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 22px;display:flex;flex-direction:column;gap:18px;animation:in .5s ease both}
+@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+h1,h2{font-family:var(--display);font-weight:800;line-height:1.05;margin:0;text-wrap:balance}
+h1{font-size:clamp(32px,9vw,42px)}
+h2{font-size:clamp(28px,8vw,36px)}
+p{margin:0;color:var(--muted)}
+p b{color:var(--fg)}
+.ball{width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f2736c,var(--ball) 60%,#9b221d);position:relative;flex:none;animation:spin 6s linear infinite}
+.ball::before,.ball::after{content:"";position:absolute;left:50%;top:6px;bottom:6px;width:0;border-left:2px dashed rgba(255,255,255,.7);transform:translateX(-10px) rotate(0)}
+.ball::after{transform:translateX(8px)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.row{display:flex;gap:16px;align-items:center}
+label{font-size:14px;color:var(--muted)}
+input{width:100%;font:inherit;font-size:18px;padding:14px 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--pitch);color:var(--fg)}
+input::placeholder{color:#6f8576}
+input:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+button{font:inherit;font-weight:700;font-size:17px;padding:15px 18px;border-radius:12px;border:0;cursor:pointer;background:var(--gold);color:#241a00;transition:transform .15s}
+button:active{transform:scale(.97)}
+button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--line)}
+.btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center;min-height:56px;position:relative}
+.btns button{flex:1 1 140px}
+.bar{height:12px;border-radius:99px;background:var(--pitch);overflow:hidden;border:1px solid var(--line)}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ball),var(--gold));transition:width .6s ease}
+#scanMsg{min-height:3em;color:var(--fg)}
+.list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.list li{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:12px;background:var(--pitch);border:1px solid var(--line);opacity:0;transform:translateX(-10px);transition:all .45s ease}
+.list li.on{opacity:1;transform:none}
+.list li span.t{flex:none;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#241a00;display:grid;place-items:center;font-size:14px;font-weight:800}
+.list li div{min-width:0}
+.list li small{display:block;color:var(--muted);font-size:13px}
+.sec{font-family:var(--display);font-size:20px;font-weight:800;margin:6px 0 -4px}
+.note{border-left:3px solid var(--ball);padding:4px 0 4px 14px;color:var(--fg)}
+.stamp{align-self:flex-start;font-family:var(--display);font-weight:800;color:var(--gold);border:3px solid var(--gold);border-radius:10px;padding:4px 12px;transform:rotate(-5deg);letter-spacing:.06em}
+.opts{display:flex;flex-direction:column;gap:12px;padding:4px 14px}
+.opt{background:var(--pitch);color:var(--fg);border:1.5px solid var(--line);text-align:left;font-weight:500;font-size:16px;transition:transform .25s cubic-bezier(.3,1.6,.5,1),background .2s}
+.opt.ok:hover{background:#1d4a30}
+.opt.dodge{border-style:dashed}
+.opt.picked{background:var(--gold);color:#241a00;border-color:var(--gold)}
+.fb{min-height:3em;color:var(--gold);font-weight:500}
+.scratch{position:relative;height:170px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.prize{position:absolute;inset:0;display:flex;flex-direction:column;gap:6px;justify-content:center;padding:14px 16px;background:var(--pitch);font-size:15px;color:var(--fg)}
+.prize b{font-family:var(--display);font-size:22px;color:var(--gold)}
+.prize .love{color:var(--ball);font-weight:700}
+#sc{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;transition:opacity .6s}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:20}
+@media (prefers-reduced-motion:reduce){.ball{animation:none}.stage{animation:none}}
+</style>
+
+<canvas id="fx"></canvas>
+<main>
+  <section class="stage" id="s1">
+    <div class="row"><div class="ball" aria-hidden="true"></div><span class="tag">Cricket Coaching Application<br>Only 1 slot open</span></div>
+    <h1>Zero cricket knowledge? Perfect.</h1>
+    <p>One slot. One lucky person. Let's check if it's <b>you</b>.</p>
+    <div>
+      <label for="nm">Enter your name</label>
+      <input id="nm" type="text" maxlength="30" autocomplete="off" placeholder="Your name">
+    </div>
+    <div class="btns"><button id="go" type="button">Check if I'm the luckiest 🏏</button></div>
+  </section>
+
+  <section class="stage" id="s2" hidden>
+    <span class="tag">Selection in progress</span>
+    <h2 id="scanTitle">Scanning applicants…</h2>
+    <div class="bar"><i id="fill"></i></div>
+    <p id="scanMsg"></p>
+  </section>
+
+  <section class="stage" id="sq" hidden>
+    <span class="tag" id="qn">Interview round</span>
+    <div class="bar"><i id="qfill"></i></div>
+    <h2 id="qt"></h2>
+    <div class="opts" id="opts"></div>
+    <p id="qfb" class="fb"></p>
+  </section>
+
+  <section class="stage" id="s3" hidden>
+    <span class="stamp">SELECTED</span>
+    <h2 id="win"></h2>
+    <p>You passed the interview and you are the <b>luckiest person</b> I picked to teach cricket. See why you matched 😌</p>
+    <div class="sec">Your requirements</div>
+    <ul class="list" id="l1">
+      <li><span class="t">✓</span><div>Zero knowledge of cricket<small>Level: not even knowing which end of the bat 😂</small></div></li>
+      <li><span class="t">✓</span><div>Time with Rishi<small>Lots. Daily. Non-negotiable.</small></div></li>
+      <li><span class="t">✓</span><div>Lollipop or Kurkure supply<small>Rishi buys. Guaranteed.</small></div></li>
+      <li><span class="t">✓</span><div>Hides nothing, tells Rishi everything<small>Everything. Even the small things.</small></div></li>
+      <li><span class="t">✓</span><div>Judging<small>0%. Rishi does not judge.</small></div></li>
+    </ul>
+    <div class="sec">Coach requirements, checked</div>
+    <ul class="list" id="l2">
+      <li><span class="t">✓</span><div>Answers politely, even for the spelling of "bat"</div></li>
+      <li><span class="t">✓</span><div>Explains patiently, even the 1000th time</div></li>
+      <li><span class="t">✓</span><div>Dusky skin tone 🖤</div></li>
+      <li><span class="t">✓</span><div>Beard 😉</div></li>
+      <li><span class="t">✓</span><div>Talks like a pro player, stays very polite</div></li>
+      <li><span class="t">✓</span><div>Winks and says "Heyyyy" 🤭</div></li>
+      <li><span class="t">✓</span><div>Never gets angry, however much torture</div></li>
+    </ul>
+    <p id="match" hidden><b>Match found: 100%.</b> The person who fits every line is Rishi.</p>
+    <div class="btns" id="choice" hidden>
+      <button id="yes" type="button">Accept my slot 🏏</button>
+      <button id="no" class="ghost" type="button">Decline</button>
+    </div>
+  </section>
+
+  <section class="stage" id="s4" hidden>
+    <span class="tag">Application accepted</span>
+    <h2 id="fin"></h2>
+    <p class="note">Application link kekkura nu sonna, so indha surprise. Naan open pannadhu un oru slot ku dhaan, vera yaarukum illa.</p>
+    <p>First class is whenever you say. Bring zero cricket knowledge. Rishi brings the bat, the ball, and a lollipop. And you still get a "Heyyyy" 😉</p>
+    <div class="sec">One more surprise. Scratch here 👇</div>
+    <div class="scratch" id="scr">
+      <div class="prize">
+        <b>🎟️ Lifetime Coupon</b>
+        <span>1 lollipop, any day. Unlimited patience. A "Heyyyy" whenever you want.</span>
+        <span class="love">Cricket mattum illa… nee dhaan en everything ❤️</span>
+      </div>
+      <canvas id="sc"></canvas>
+    </div>
+    <button id="again" class="ghost" type="button">Play again</button>
+  </section>
+</main>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var name='';
+  function show(id){['s1','s2','sq','s3','s4'].forEach(function(s){$(s).hidden=s!==id});window.scrollTo(0,0)}
+
+  var msgs=[
+    'Checking 8,00,00,000 applicants…',
+    'Removing people who already know cricket…',
+    'Removing people who judge…',
+    'Removing people who hide things from Rishi…',
+    'Only one name left. Verifying…'
+  ];
+  function scan(){
+    show('s2');
+    $('scanTitle').textContent='Scanning for the luckiest person…';
+    var i=0;
+    function step(){
+      if(i<msgs.length){
+        $('scanMsg').textContent=msgs[i];
+        $('fill').style.width=((i+1)/msgs.length*100)+'%';
+        i++;setTimeout(step,1300);
+      }else{startQuiz()}
+    }
+    $('fill').style.width='0';
+    setTimeout(step,200);
+  }
+
+  // Interview: ok options are clickable, dodge options run away from finger/mouse
+  var Q=[
+    {q:'Bat nu spelling kettaa, polite ah solluviya?',o:[
+      ['B-A-T. 1000 vaati kettaalum solluven 😌','Perfect. Rishi already happy.',1],
+      ['Google panni solluven 😅','Honest answer. Accepted.',1],
+      ['Naan romba busy, apram pesalam',0],
+      ['Spelling ellam naan solla maaten 😏',0]]},
+    {q:'Cricket pathi nee enna alavu therinjavan?',o:[
+      ['Zero. Full zero 🥚','Super. Exactly what Rishi wanted.',1],
+      ['Six adicha mattum theriyum','Okay okay, good start.',1],
+      ['Naan Virat ku coaching kudukkuren 😎',0],
+      ['Enakku ellam theriyum, nee mooditu iru',0]]},
+    {q:'Rishi kuda time spend panna ready ah?',o:[
+      ['Daily ready 🥹','Daily nu note pannitten.',1],
+      ['Full day kooda ready','Rishi blushing 🫠',1],
+      ['Time irundha paakalam',0],
+      ['Next year yosikkalam 🤔',0]]},
+    {q:'Lollipop ah Kurkure ah?',o:[
+      ['Lollipop 🍭','Rishi will buy. Noted.',1],
+      ['Kurkure 😋','Kurkure stock ready.',1],
+      ['Rendum venam, salad podhum 🥗',0],
+      ['Naan yedhuvum saappida maaten',0]]},
+    {q:'Ethavathu Rishi kita maraikkuviya?',o:[
+      ['Illa, ellaam solluven 🤝','That is the main rule.',1],
+      ['Maraikka maaten, promise','Pinky promise accepted.',1],
+      ['Konjam maraipen 🤫',0],
+      ['Surprise ah maraipen 😜',0]]},
+    {q:'Rishi judge pannuvan nu bayama?',o:[
+      ['Illa, Rishi judge panna maatan','Correct. Zero judging.',1],
+      ['Konjam bayam, aana trust 🥹','Trust is the best answer.',1],
+      ['Judge panninaa bat ah edukkuven 🏏',0],
+      ['Aamam, bayama thaan irukku',0]]}
+  ];
+  var qi=0,locked=false;
+  var wail=['Hehe, pudikka mudiyala 😜','Cannot touch 😂','Try again 🤭','Enna da ithu 😂','Athu un answer illa 😌','Oduren oduren 🏃'];
+  function startQuiz(){
+    qi=0;show('sq');ask();
+  }
+  function ask(){
+    locked=false;
+    var d=Q[qi];
+    $('qn').textContent='Interview round · Question '+(qi+1)+' of '+Q.length;
+    $('qfill').style.width=(qi/Q.length*100)+'%';
+    $('qt').textContent=d.q;$('qfb').textContent='';
+    var box=$('opts');box.innerHTML='';
+    d.o.map(function(x,i){return {x:x,i:i}}).sort(function(a,b){return Math.random()-.5}).forEach(function(p){
+      var b=document.createElement('button');b.type='button';
+      b.className='opt '+(p.x[2]?'ok':'dodge');b.textContent=p.x[0];
+      if(p.x[2]){b.onclick=function(){
+        if(locked)return;locked=true;b.classList.add('picked');
+        $('qfb').textContent=p.x[1];
+        setTimeout(function(){qi++;if(qi<Q.length)ask();else{$('qfill').style.width='100%';result()}},1300);
+      }}else{
+        var n=0;
+        var run=function(e){
+          if(e)e.preventDefault();
+          n++;
+          var w=Math.min(innerWidth-60,380)*.45;
+          var x=(Math.random()<.5?-1:1)*(30+Math.random()*w*.6);
+          var y=(Math.random()-.5)*70;
+          b.style.transform='translate('+x+'px,'+y+'px) rotate('+((Math.random()-.5)*14)+'deg)';
+          $('qfb').textContent=wail[Math.floor(Math.random()*wail.length)];
+        };
+        b.addEventListener('pointerenter',run);
+        b.addEventListener('touchstart',run,{passive:false});
+        b.addEventListener('mousedown',run);
+        b.addEventListener('click',run);
+      }
+      box.appendChild(b);
+    });
+  }
+
+  // Scratch card
+  var sc=$('sc'),sg=sc.getContext('2d'),scratching=false,cleared=false;
+  function initScratch(){
+    var w=$('scr').clientWidth,h=$('scr').clientHeight;
+    sc.width=w;sc.height=h;cleared=false;sc.style.opacity=1;sc.style.pointerEvents='auto';
+    var g=sg.createLinearGradient(0,0,w,h);g.addColorStop(0,'#b9bec0');g.addColorStop(.5,'#e8ebec');g.addColorStop(1,'#9ea5a8');
+    sg.globalCompositeOperation='source-over';sg.fillStyle=g;sg.fillRect(0,0,w,h);
+    sg.fillStyle='#5a6266';sg.font='700 18px DM Sans, sans-serif';sg.textAlign='center';
+    sg.fillText('Scratch here 🏏',w/2,h/2+6);
+  }
+  function scrub(e){
+    if(!scratching||cleared)return;
+    var r=sc.getBoundingClientRect();
+    sg.globalCompositeOperation='destination-out';
+    sg.beginPath();sg.arc(e.clientX-r.left,e.clientY-r.top,22,0,7);sg.fill();
+    checkScratch();
+  }
+  var chk=0;
+  function checkScratch(){
+    if(++chk%6)return;
+    var d=sg.getImageData(0,0,sc.width,sc.height).data,c=0;
+    for(var i=3;i<d.length;i+=64)if(d[i]===0)c++;
+    if(c/(d.length/64)>.4){cleared=true;sc.style.opacity=0;sc.style.pointerEvents='none';confetti()}
+  }
+  sc.addEventListener('pointerdown',function(e){scratching=true;sc.setPointerCapture(e.pointerId);scrub(e)});
+  sc.addEventListener('pointermove',scrub);
+  sc.addEventListener('pointerup',function(){scratching=false});
+  sc.addEventListener('pointercancel',function(){scratching=false});
+
+  function reveal(list,done){
+    var items=list.querySelectorAll('li'),k=0;
+    (function next(){
+      if(k<items.length){items[k++].classList.add('on');setTimeout(next,550)}else if(done){done()}
+    })();
+  }
+  function result(){
+    $('win').textContent='Congratulations, '+name+'! 🎉';
+    document.querySelectorAll('.list li').forEach(function(li){li.classList.remove('on')});
+    $('match').hidden=true;$('choice').hidden=true;
+    show('s3');confetti();
+    setTimeout(function(){
+      reveal($('l1'),function(){reveal($('l2'),function(){
+        $('match').hidden=false;$('choice').hidden=false;
+      })});
+    },1200);
+  }
+
+  $('go').onclick=function(){
+    var v=$('nm').value.trim();
+    if(!v){$('nm').focus();$('nm').placeholder='Type your name first 😄';return}
+    name=v;scan();
+  };
+  $('nm').addEventListener('keydown',function(e){if(e.key==='Enter')$('go').click()});
+
+  // Decline button dodges
+  var no=$('no');
+  function dodge(e){
+    if(e)e.preventDefault();
+    var box=$('choice').getBoundingClientRect();
+    var maxX=Math.max(0,box.width-no.offsetWidth),maxY=60;
+    no.style.position='absolute';
+    no.style.left=Math.random()*maxX+'px';
+    no.style.top=(Math.random()*maxY-10)+'px';
+    no.style.flex='none';no.style.width='110px';
+    no.textContent=['Nope 😜','Try again','Cannot 😂','Hehe'][Math.floor(Math.random()*4)];
+  }
+  no.addEventListener('mouseenter',dodge);
+  no.addEventListener('touchstart',dodge,{passive:false});
+  no.addEventListener('click',dodge);
+
+  $('yes').onclick=function(){
+    $('fin').textContent='Slot confirmed, '+name+' 🏏';
+    show('s4');confetti();initScratch();
+  };
+  $('again').onclick=function(){
+    no.removeAttribute('style');no.textContent='Decline';
+    $('nm').value='';show('s1');
+  };
+
+  // Confetti
+  var cv=$('fx'),cx=cv.getContext('2d'),parts=[],raf;
+  function fit(){cv.width=innerWidth;cv.height=innerHeight}
+  addEventListener('resize',fit);fit();
+  function confetti(){
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    var cols=['#e0413a','#f5c542','#f3efe2','#5fd08a'];
+    for(var i=0;i<140;i++)parts.push({x:innerWidth/2,y:innerHeight/3,vx:(Math.random()-.5)*14,vy:Math.random()*-12-2,s:4+Math.random()*6,c:cols[i%4],r:Math.random()*6});
+    cancelAnimationFrame(raf);tick();
+  }
+  function tick(){
+    cx.clearRect(0,0,cv.width,cv.height);
+    parts.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.3;p.r+=.2;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore()});
+    parts=parts.filter(function(p){return p.y<innerHeight+20});
+    if(parts.length)raf=requestAnimationFrame(tick);else cx.clearRect(0,0,cv.width,cv.height);
+  }
+})();
+</script>
+
+</body></html>
