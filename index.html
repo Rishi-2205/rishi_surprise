@@ -1,832 +1,1680 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+
 <title>Cricket Slot Application</title>
+
 <meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap">
+
+<link rel="stylesheet" href="https\://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap">
+
 <style>
+
 /* Layout: one centered phone-sized card, stages swap in place. Look: floodlit night pitch, single dark theme by choice. */
+
 :root{
-  --bg:#150b2b;
-  --pitch:#241546;
-  --card:#1c0f3a;
-  --fg:#f7f1ff;
-  --muted:#bba9dc;
-  --ball:#ff5fa8;
-  --gold:#e6b7ff;
-  --line:#46307a;
-  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
-  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  color-scheme:dark;
+
+  --bg:#150b2b;
+
+  --pitch:#241546;
+
+  --card:#1c0f3a;
+
+  --fg:#f7f1ff;
+
+  --muted:#bba9dc;
+
+  --ball:#ff5fa8;
+
+  --gold:#e6b7ff;
+
+  --line:#46307a;
+
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+
+  --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+
+  color-scheme:dark;
+
 }
+
 *{box-sizing:border-box}
+
 [hidden]{display:none!important}
+
 html,body{min-height:100%}
+
 body{
-  margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 var(--body);
-  padding-block:24px;
-  padding-left:max(16px,env(safe-area-inset-left,0px));
-  padding-right:max(16px,env(safe-area-inset-right,0px));
-  background-image:
-    radial-gradient(ellipse at 50% -10%,rgba(168,85,247,.32),transparent 55%),
-    repeating-linear-gradient(90deg,transparent 0 56px,rgba(255,255,255,.025) 56px 112px);
-  background-attachment:fixed;
+
+  margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 var(--body);
+
+  padding-block:24px;
+
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+
+  background-image:
+
+    radial-gradient(ellipse at 50% -10%,rgba(168,85,247,.32),transparent 55%),
+
+    repeating-linear-gradient(90deg,transparent 0 56px,rgba(255,255,255,.025) 56px 112px);
+
+  background-attachment:fixed;
+
 }
+
 main{position:relative;z-index:1;max-width:460px;margin:0 auto;min-height:calc(100vh - 48px);display:flex;flex-direction:column;justify-content:center}
+
 .stage{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px 22px;display:flex;flex-direction:column;gap:18px;animation:in .5s ease both}
+
 @keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
 .tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+
 h1,h2{font-family:var(--display);font-weight:800;line-height:1.05;margin:0;text-wrap:balance}
+
 h1{font-size:clamp(32px,9vw,42px)}
+
 h2{font-size:clamp(28px,8vw,36px)}
+
 p{margin:0;color:var(--muted)}
+
 p b{color:var(--fg)}
+
 .ball{width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff9cc9,var(--ball) 60%,#a3226a);position:relative;flex:none;animation:spin 6s linear infinite}
+
 .ball::before,.ball::after{content:"";position:absolute;left:50%;top:6px;bottom:6px;width:0;border-left:2px dashed rgba(255,255,255,.7);transform:translateX(-10px) rotate(0)}
+
 .ball::after{transform:translateX(8px)}
+
 @keyframes spin{to{transform:rotate(360deg)}}
+
 .row{display:flex;gap:16px;align-items:center}
+
 label{font-size:14px;color:var(--muted)}
+
 input{width:100%;font:inherit;font-size:18px;padding:14px 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--pitch);color:var(--fg)}
+
 input::placeholder{color:#8a77b3}
+
 input:focus-visible,button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
 button{font:inherit;font-weight:700;font-size:17px;padding:15px 18px;border-radius:12px;border:0;cursor:pointer;background:var(--gold);color:#2a0f4d;transition:transform .15s}
+
 button:active{transform:scale(.97)}
+
 button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--line)}
+
 .btns{display:flex;gap:12px;flex-wrap:wrap;align-items:center;min-height:56px;position:relative}
+
 .btns button{flex:1 1 140px}
+
 .bar{height:12px;border-radius:99px;background:var(--pitch);overflow:hidden;border:1px solid var(--line)}
+
 .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ball),var(--gold));transition:width .6s ease}
-#scanMsg{min-height:3em;color:var(--fg)}
+
+\#scanMsg{min-height:3em;color:var(--fg)}
+
 .list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+
 .list li{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:12px;background:var(--pitch);border:1px solid var(--line);opacity:0;transform:translateX(-10px);transition:all .45s ease}
+
 .list li.on{opacity:1;transform:none}
+
 .list li span.t{flex:none;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#2a0f4d;display:grid;place-items:center;font-size:14px;font-weight:800}
+
 .list li div{min-width:0}
+
 .list li small{display:block;color:var(--muted);font-size:13px}
+
 .sec{font-family:var(--display);font-size:20px;font-weight:800;margin:6px 0 -4px}
+
 .note{border-left:3px solid var(--ball);padding:4px 0 4px 14px;color:var(--fg)}
+
 .stamp{align-self:flex-start;font-family:var(--display);font-weight:800;color:var(--gold);border:3px solid var(--gold);border-radius:10px;padding:4px 12px;transform:rotate(-5deg);letter-spacing:.06em}
+
 .heart{position:fixed;bottom:-30px;z-index:0;pointer-events:none;opacity:.55;animation:rise linear forwards}
+
 @keyframes rise{to{transform:translateY(-115vh) rotate(20deg);opacity:0}}
+
 .track{position:relative;height:84px;border-radius:14px;background:var(--pitch);border:1px solid var(--line);overflow:hidden}
+
 .zone{position:absolute;left:38%;width:24%;top:0;bottom:0;background:rgba(230,183,255,.18);border-inline:2px dashed var(--gold)}
+
 .zone::after{content:"SIX ZONE";position:absolute;bottom:6px;left:0;right:0;text-align:center;font-size:11px;letter-spacing:.14em;color:var(--gold);font-weight:700}
-#gb{position:absolute;top:28px;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff9cc9,var(--ball) 60%,#a3226a)}
+
+\#gb{position:absolute;top:28px;width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff9cc9,var(--ball) 60%,#a3226a)}
+
 .promise{display:flex;flex-direction:column;gap:10px;padding:18px 16px;border-radius:16px;background:linear-gradient(160deg,#3a1d70,#24124a);border:1.5px solid var(--gold);font-size:17px}
+
 .promise p{color:var(--fg)}
+
 .promise b{color:var(--gold)}
+
 .letter{white-space:pre-wrap;color:var(--fg);background:var(--pitch);border:1px solid var(--line);border-radius:14px;padding:16px;min-height:9em;font-size:16px;line-height:1.6}
+
 .stats{display:flex;justify-content:space-between;font-weight:700;color:var(--gold)}
-#field{position:relative;height:300px;border-radius:14px;overflow:hidden;background:linear-gradient(180deg,var(--pitch),#2f1a5c);border:1px solid var(--line);touch-action:none;cursor:ew-resize;user-select:none}
+
+\#field{position:relative;height:300px;border-radius:14px;overflow:hidden;background:linear-gradient(180deg,var(--pitch),#2f1a5c);border:1px solid var(--line);touch-action:none;cursor:ew-resize;user-select:none}
+
 .fall{position:absolute;transform:translateX(-50%);font-size:28px;pointer-events:none}
-#catcher{position:absolute;bottom:8px;transform:translateX(-50%);font-size:42px;pointer-events:none}
-#lock{font-size:64px;line-height:1;text-align:center;transition:transform .4s}
-#lock.open{animation:beat 1s ease infinite}
+
+\#catcher{position:absolute;bottom:8px;transform:translateX(-50%);font-size:42px;pointer-events:none}
+
+\#lock{font-size:64px;line-height:1;text-align:center;transition:transform .4s}
+
+\#lock.open{animation:beat 1s ease infinite}
+
 @keyframes beat{50%{transform:scale(1.15)}}
+
 .rules{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+
 .rules li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-radius:12px;background:var(--pitch);border:1px solid var(--line);font-size:15px}
+
 .rules li i{font-style:normal;flex:none;width:22px;text-align:center}
+
 .rules li.ok{border-color:var(--gold);color:var(--gold)}
+
 .jerseywrap{display:flex;justify-content:center}
+
 .jersey{width:230px;max-width:100%;height:190px;background:linear-gradient(160deg,#7c3aed,#4c1d95);clip-path:polygon(18% 0,36% 9%,64% 9%,82% 0,100% 24%,86% 40%,80% 33%,80% 100%,20% 100%,20% 33%,14% 40%,0 24%);display:grid;place-items:center;padding:34px 46px 10px}
+
 .jersey span{font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.04em;text-align:center;color:#fff;word-break:break-all;min-height:1.2em;line-height:1.2}
+
 .tiles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+
 .tile{padding:10px 14px;font-size:16px;background:var(--pitch);color:var(--fg);border:1.5px solid var(--gold)}
+
 .tile:disabled{opacity:.35;cursor:default}
+
 .shake{animation:shake .4s}
+
 @keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+
 .mgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.mc{aspect-ratio:1;padding:0;font-size:clamp(24px,8vw,34px);border-radius:12px;background:var(--pitch);border:1.5px solid var(--line);color:var(--gold);display:grid;place-items:center;transition:transform .25s,background .25s}
+
+.mc{aspect-ratio:1;padding:0;font-size:clamp(24px,8vw,34px);border-radius:12px;background:var(--pitch);border:1.5px solid var(--line);color:var(--gold);display:grid;place-items:center;transition:transform .25s,*background* .25s}
+
 .mc.up{background:#3a1d70;border-color:var(--gold);transform:rotateY(8deg)}
+
 .mc.done{background:linear-gradient(160deg,#5a2aa8,#3a1d70);border-color:var(--ball);opacity:.9}
+
 .stars{display:flex;gap:6px;justify-content:center}
+
 .star{padding:4px 6px;background:transparent;font-size:40px;line-height:1;color:#5a4590;transition:transform .2s,color .2s}
+
 .star.on{color:var(--gold);transform:scale(1.15)}
+
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+
 .rc{min-height:110px;padding:12px;border-radius:14px;background:var(--pitch);border:1.5px solid var(--line);color:var(--fg);text-align:left;font-size:15px;font-weight:500;display:flex;flex-direction:column;gap:6px;justify-content:center;transition:transform .3s}
+
 .rc b{font-family:var(--display);font-size:18px;color:var(--gold)}
+
 .rc span{display:none;color:var(--fg)}
+
 .rc em{font-style:normal;color:var(--muted);font-size:13px}
+
 .rc.open{background:linear-gradient(160deg,#3a1d70,#24124a);border-color:var(--gold);transform:rotate(-1deg)}
+
 .rc.open span{display:block}
+
 .rc.open em{display:none}
+
 .opts{display:flex;flex-direction:column;gap:12px;padding:4px 14px}
-.opt{background:var(--pitch);color:var(--fg);border:1.5px solid var(--line);text-align:left;font-weight:500;font-size:16px;transition:transform .25s cubic-bezier(.3,1.6,.5,1),background .2s}
+
+.opt{background:var(--pitch);color:var(--fg);border:1.5px solid var(--line);text-align:left;font-weight:500;font-size:16px;transition:transform .25s cubic-bezier(.3,1.6,.5,1),*background* .2s}
+
 .opt.ok:hover{background:#35205f}
+
 .opt.dodge{border-style:dashed}
+
 .opt.picked{background:var(--gold);color:#2a0f4d;border-color:var(--gold)}
+
 .fb{min-height:3em;color:var(--gold);font-weight:500}
+
 .scratch{position:relative;height:170px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+
 .prize{position:absolute;inset:0;display:flex;flex-direction:column;gap:6px;justify-content:center;padding:14px 16px;background:var(--pitch);font-size:15px;color:var(--fg)}
+
 .prize b{font-family:var(--display);font-size:22px;color:var(--gold)}
+
 .prize .love{color:var(--ball);font-weight:700}
-#sc{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;transition:opacity .6s}
-#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:20}
+
+\#sc{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab;transition:opacity .6s}
+
+\#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:20}
+
 @media (prefers-reduced-motion:reduce){.ball{animation:none}.stage{animation:none}}
+.intro-heart{font-size:64px;text-align:center;filter:drop-shadow(0 0 18px rgba(255,95,168,.55));animation:beat 1.5s ease-in-out infinite}
+.intro-copy{text-align:center;color:var(--fg);font-size:17px}
+.final-reveal{padding:20px 16px;border:1px solid var(--gold);border-radius:16px;background:linear-gradient(145deg,#3a1d70,#1c0f3a);text-align:center;animation:in .7s ease both}
+.final-reveal b{display:block;font-family:var(--display);font-size:22px;color:var(--gold);margin-bottom:8px}
+@media (prefers-reduced-motion:reduce){.intro-heart{animation:none}}
+
 </style>
 
+
+
 <canvas id="fx"></canvas>
+
 <main>
-  <section class="stage" id="s1">
-    <div class="row"><div class="ball" aria-hidden="true"></div><span class="tag">Cricket Coaching Application<br>Only 1 slot open</span></div>
-    <h1>Zero cricket knowledge? Perfect.</h1>
-    <p>One slot. One lucky person. Let's check if it's <b>you</b>.</p>
-    <div>
-      <label for="nm">Enter your name</label>
-      <input id="nm" type="text" maxlength="30" autocomplete="off" placeholder="Your name">
-    </div>
-    <div class="btns"><button id="go" type="button">Check if I'm the luckiest 🏏</button></div>
+
+  <section class="stage" id="intro">
+    <span class="tag">A little surprise for you</span>
+    <div class="intro-heart" aria-hidden="true">💜</div>
+    <h1 style="text-align:center">Hey, special person.</h1>
+    <p class="intro-copy">I made a tiny application just for you. No pressure, no cricket knowledge needed — just play along and see what happens. 🏏</p>
+    <div class="btns"><button id="openIntro" type="button">Open your surprise 💌</button></div>
+    <p style="text-align:center;font-size:13px">Made with a little cricket, a little chaos, and lots of care.</p>
   </section>
 
-  <section class="stage" id="s2" hidden>
-    <span class="tag">Selection in progress</span>
-    <h2 id="scanTitle">Scanning applicants…</h2>
-    <div class="bar"><i id="fill"></i></div>
-    <p id="scanMsg"></p>
-  </section>
+  <section class="stage" id="s1" hidden>
 
-  <section class="stage" id="sq" hidden>
-    <span class="tag" id="qn">Interview round</span>
-    <div class="bar"><i id="qfill"></i></div>
-    <h2 id="qt"></h2>
-    <div class="opts" id="opts"></div>
-    <p id="qfb" class="fb"></p>
-  </section>
+    <div class="row"><div class="ball" aria-hidden="true"></div><span class="tag">Cricket Coaching Application<br>Only 1 slot open</span></div>
 
-  <section class="stage" id="s3" hidden>
-    <span class="stamp">SELECTED</span>
-    <h2 id="win"></h2>
-    <p>You passed the interview and you are the <b>luckiest person</b> I picked to teach cricket. See why you matched 😌</p>
-    <div class="sec">Your requirements</div>
-    <ul class="list" id="l1">
-      <li><span class="t">✓</span><div>Zero knowledge of cricket<small>Level: not even knowing which end of the bat 😂</small></div></li>
-      <li><span class="t">✓</span><div>Time with Rishi<small>Lots. Daily. Non-negotiable.</small></div></li>
-      <li><span class="t">✓</span><div>Lollipop or Kurkure supply<small>Rishi buys. Guaranteed.</small></div></li>
-      <li><span class="t">✓</span><div>Hides nothing, tells Rishi everything<small>Everything. Even the small things.</small></div></li>
-      <li><span class="t">✓</span><div>Judging<small>0%. Rishi does not judge.</small></div></li>
-    </ul>
-    <div class="sec">Coach requirements, checked</div>
-    <ul class="list" id="l2">
-      <li><span class="t">✓</span><div>Answers politely, even for the spelling of "bat"</div></li>
-      <li><span class="t">✓</span><div>Explains patiently, even the 1000th time</div></li>
-      <li><span class="t">✓</span><div>Dusky skin tone 🖤</div></li>
-      <li><span class="t">✓</span><div>Beard 😉</div></li>
-      <li><span class="t">✓</span><div>Talks like a pro player, stays very polite</div></li>
-      <li><span class="t">✓</span><div>Winks and says "Heyyyy" 🤭</div></li>
-      <li><span class="t">✓</span><div>Never gets angry, however much torture</div></li>
-    </ul>
-    <p id="match" hidden><b>Match found: 100%.</b> The person who fits every line is Rishi.</p>
-    <div class="btns" id="choice" hidden>
-      <button id="yes" type="button">Accept my slot 🏏</button>
-      <button id="no" class="ghost" type="button">Decline</button>
-    </div>
-  </section>
+    <h1>Zero cricket knowledge? Perfect.</h1>
 
-  <section class="stage" id="sg" hidden>
-    <span class="tag" id="gn">Net practice</span>
-    <h2>First lesson: hit a six 🏏</h2>
-    <p>Ball vara pogudhu. Ball <b>six zone</b> ku vara pothu HIT button ah press pannu.</p>
-    <div class="track"><div class="zone"></div><div id="gb"></div></div>
-    <div class="btns"><button id="hit" type="button">HIT 🏏</button></div>
-    <p class="fb" id="gfb"></p>
-    <div class="btns" id="gnext" hidden><button id="gcont" type="button">Continue →</button></div>
-  </section>
+    <p>One slot. One lucky person. Let's check if it's <b>you</b>.</p>
 
-  <section class="stage" id="sg2" hidden>
-    <span class="tag">Fielding practice</span>
-    <h2>Catch the lollipops 🧤</h2>
-    <p>Finger or mouse ah left right move pannu. 🍭 and 🍿 pidi. <b>😡 vandha thavirthudu</b>, Rishi ku kovame varaadhu 😌</p>
-    <div class="stats"><span>Caught: <span id="g2s">0</span></span><span>Time: <span id="g2t">20</span>s</span></div>
-    <div id="field"><div id="catcher">🧤</div></div>
-    <p class="fb" id="g2fb"></p>
-    <div class="btns" id="g2next" hidden><button id="g2cont" type="button">Continue →</button></div>
-  </section>
+    <div>
 
-  <section class="stage" id="sm" hidden>
-    <span class="tag">Brain practice</span>
-    <h2>Match the pairs 💜</h2>
-    <p>Cards ah flip panni, same ah irukkura rendu ah match pannu. Rishi ku memory romba strong, nee try pannu 😌</p>
-    <div class="stats"><span>Moves: <span id="mm">0</span></span><span>Pairs: <span id="mp">0</span>/6</span></div>
-    <div class="mgrid" id="mgrid"></div>
-    <p class="fb" id="mfb"></p>
-    <div class="btns" id="mnext" hidden><button id="mcont" type="button">Continue →’</button></div>
-  </section>
+      <label for="nm">Enter your name</label>
 
-  <section class="stage" id="srt" hidden>
-    <span class="tag">Feedback form</span>
-    <h2>Rate your coach ⭐</h2>
-    <p>Rishi yevlo nalla coach? Star tap pannu.</p>
-    <div class="stars" id="stars"></div>
-    <p class="fb" id="rtfb"></p>
-    <div class="btns" id="rtnext" hidden><button id="rtcont" type="button">Continue →’</button></div>
-  </section>
+      <input id="nm" type="text" maxlength="30" autocomplete="off" placeholder="Your name">
 
-  <section class="stage" id="sr" hidden>
-    <span class="tag">Last round</span>
-    <h2>Why Rishi picked you 💜</h2>
-    <p>Ovvoru card aiyum tap pannu. Ellam open pannina next surprise.</p>
-    <div class="cards" id="cards"></div>
-    <div class="btns" id="rnext" hidden><button id="rcont" type="button">Next surprise →’</button></div>
-  </section>
+    </div>
 
-  <section class="stage" id="sp" hidden>
-    <span class="tag">Final level</span>
-    <div id="lock" aria-hidden="true">🔒</div>
-    <h2 id="ph">Rishi's heart is locked</h2>
-    <p>Heart open panna correct password sollu. Theriyala na <b>Hint kudu</b> button press pannu 🥺</p>
-    <div>
-      <label for="pw">Password</label>
-      <input id="pw" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type here">
-    </div>
-    <ul class="rules" id="clues"></ul>
-    <div class="btns" id="pbtns">
-      <button id="unlock" type="button">Unlock 🔓</button>
-      <button id="hint" class="ghost" type="button">Hint kudu 🥺</button>
-    </div>
-    <p class="fb" id="pmsg"></p>
-    <div id="task" hidden>
-      <div class="sec">Simple task 🏏</div>
-      <p>Rishi ku oru jersey ready pannu. Name parts ah correct order la tap pannu: <b>peru → date → date → game → person</b></p>
-      <div class="jerseywrap"><div class="jersey"><span id="jn"></span></div></div>
-      <div class="tiles" id="tiles"></div>
-      <p class="fb" id="tmsg"></p>
-      <div class="promise" id="pwshow" hidden>
-        <span class="tag">Un password</span>
-        <p id="pwtxt"></p>
-        <p>Idhai mela type panni Unlock pannu 💜</p>
+    <div class="btns"><button id="go" type="button">Check if I'm the luckiest 🏏</button></div>
+
+  </section>
+
+
+
+  <section class="stage" id="s2" hidden>
+
+    <span class="tag">Selection in progress</span>
+
+    <h2 id="scanTitle">Scanning applicants…</h2>
+
+    <div class="bar"><i id="fill"></i></div>
+
+    <p id="scanMsg"></p>
+
+  </section>
+
+
+
+  <section class="stage" id="sq" hidden>
+
+    <span class="tag" id="qn">Interview round</span>
+
+    <div class="bar"><i id="qfill"></i></div>
+
+    <h2 id="qt"></h2>
+
+    <div class="opts" id="opts"></div>
+
+    <p id="qfb" class="fb"></p>
+
+  </section>
+
+
+
+  <section class="stage" id="s3" hidden>
+
+    <span class="stamp">SELECTED</span>
+
+    <h2 id="win"></h2>
+
+    <p>You passed the interview and you are the <b>luckiest person</b> I picked to teach cricket. See why you matched 😌</p>
+
+    <div class="sec">Your requirements</div>
+
+    <ul class="list" id="l1">
+
+      <li><span class="t">✓</span><div>Zero knowledge of cricket<small>Level: not even knowing which end of the bat 😂</small></div></li>
+
+      <li><span class="t">✓</span><div>Time with Rishi<small>Lots. Daily. Non-negotiable.</small></div></li>
+
+      <li><span class="t">✓</span><div>Lollipop or Kurkure supply<small>Rishi buys. Guaranteed.</small></div></li>
+
+      <li><span class="t">✓</span><div>Hides nothing, tells Rishi everything<small>Everything. Even the small things.</small></div></li>
+
+      <li><span class="t">✓</span><div>Judging<small>0%. Rishi does not judge.</small></div></li>
+
+    </ul>
+
+    <div class="sec">Coach requirements, checked</div>
+
+    <ul class="list" id="l2">
+
+      <li><span class="t">✓</span><div>Answers politely, even for the spelling of "bat"</div></li>
+
+      <li><span class="t">✓</span><div>Explains patiently, even the 1000th time</div></li>
+
+      <li><span class="t">✓</span><div>Dusky skin tone 🖤</div></li>
+
+      <li><span class="t">✓</span><div>Beard 😉</div></li>
+
+      <li><span class="t">✓</span><div>Talks like a pro player, stays very polite</div></li>
+
+      <li><span class="t">✓</span><div>Winks and says "Heyyyy" 🤭</div></li>
+
+      <li><span class="t">✓</span><div>Never gets angry, however much torture</div></li>
+
+    </ul>
+
+    <p id="match" hidden><b>Match found: 100%.</b> The person who fits every line is Rishi.</p>
+
+    <div class="btns" id="choice" hidden>
+
+      <button id="yes" type="button">Accept my slot 🏏</button>
+
+      <button id="no" class="ghost" type="button">Decline</button>
+
+    </div>
+
+  </section>
+
+
+
+  <section class="stage" id="sg" hidden>
+
+    <span class="tag" id="gn">Net practice</span>
+
+    <h2>First lesson: hit a six 🏏</h2>
+
+    <p>Ball vara pogudhu. Ball <b>six zone</b> ku vara pothu HIT button ah press pannu.</p>
+
+    <div class="track"><div class="zone"></div><div id="gb"></div></div>
+
+    <div class="btns"><button id="hit" type="button">HIT 🏏</button></div>
+
+    <p class="fb" id="gfb"></p>
+
+    <div class="btns" id="gnext" hidden><button id="gcont" type="button">Continue →</button></div>
+
+  </section>
+
+
+
+  <section class="stage" id="sg2" hidden>
+
+    <span class="tag">Fielding practice</span>
+
+    <h2>Catch the lollipops 🧤</h2>
+
+    <p>Finger or mouse ah left right move pannu. 🍭 and 🍿 pidi. <b>😡 vandha thavirthudu</b>, Rishi ku kovame varaadhu 😌</p>
+
+    <div class="stats"><span>Caught: <span id="g2s">0</span></span><span>Time: <span id="g2t">20</span>s</span></div>
+
+    <div id="field"><div id="catcher">🧤</div></div>
+
+    <p class="fb" id="g2fb"></p>
+
+    <div class="btns" id="g2next" hidden><button id="g2cont" type="button">Continue →</button></div>
+
+  </section>
+
+
+
+  <section class="stage" id="sm" hidden>
+
+    <span class="tag">Brain practice</span>
+
+    <h2>Match the pairs 💜</h2>
+
+    <p>Cards ah flip panni, same ah irukkura rendu ah match pannu. Rishi ku memory romba strong, nee try pannu 😌</p>
+
+    <div class="stats"><span>Moves: <span id="mm">0</span></span><span>Pairs: <span id="mp">0</span>/6</span></div>
+
+    <div class="mgrid" id="mgrid"></div>
+
+    <p class="fb" id="mfb"></p>
+
+    <div class="btns" id="mnext" hidden><button id="mcont" type="button">Continue →’</button></div>
+
+  </section>
+
+
+
+  <section class="stage" id="srt" hidden>
+
+    <span class="tag">Feedback form</span>
+
+    <h2>Rate your coach ⭐</h2>
+
+    <p>Rishi yevlo nalla coach? Star tap pannu.</p>
+
+    <div class="stars" id="stars"></div>
+
+    <p class="fb" id="rtfb"></p>
+
+    <div class="btns" id="rtnext" hidden><button id="rtcont" type="button">Continue →’</button></div>
+
+  </section>
+
+
+
+  <section class="stage" id="sr" hidden>
+
+    <span class="tag">Last round</span>
+
+    <h2>Why Rishi picked you 💜</h2>
+
+    <p>Ovvoru card aiyum tap pannu. Ellam open pannina next surprise.</p>
+
+    <div class="cards" id="cards"></div>
+
+    <div class="btns" id="rnext" hidden><button id="rcont" type="button">Next surprise →’</button></div>
+
+  </section>
+
+
+
+  <section class="stage" id="sp" hidden>
+
+    <span class="tag">Final level</span>
+
+    <div id="lock" aria-hidden="true">🔒</div>
+
+    <h2 id="ph">Rishi's heart is locked</h2>
+
+    <p>Heart open panna correct password sollu. Theriyala na <b>Hint kudu</b> button press pannu 🥺</p>
+
+    <div>
+
+      <label for="pw">Password</label>
+
+      <input id="pw" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Type here">
+
+    </div>
+
+    <ul class="rules" id="clues"></ul>
+
+    <div class="btns" id="pbtns">
+
+      <button id="unlock" type="button">Unlock 🔓</button>
+
+      <button id="hint" class="ghost" type="button">Hint kudu 🥺</button>
+
+    </div>
+
+    <p class="fb" id="pmsg"></p>
+
+    <div id="task" hidden>
+
+      <div class="sec">Simple task 🏏</div>
+
+      <p>Rishi ku oru jersey ready pannu. Name parts ah correct order la tap pannu: <b>peru → date → date → game → person</b></p>
+
+      <div class="jerseywrap"><div class="jersey"><span id="jn"></span></div></div>
+
+      <div class="tiles" id="tiles"></div>
+
+      <p class="fb" id="tmsg"></p>
+
+      <div class="promise" id="pwshow" hidden>
+
+        <span class="tag">Un password</span>
+
+        <p id="pwtxt"></p>
+
+        <p>Idhai mela type panni Unlock pannu 💜</p>
+
+      </div>
+
+    </div>
+
+    <div class="btns" id="pnext" hidden><button id="pcont" type="button">Open the heart 💜</button></div>
+
+  </section>
+
+
+
+  <section class="stage" id="s4" hidden>
+
+    <span class="tag">Application accepted</span>
+
+    <h2 id="fin"></h2>
+
+    <p class="note">Application link ketila, so inthu than antha link uh... Naan open pannadhu un oru slot ku dhaan, vera yaarukum illa.</p>
+
+    <p>First class is whenever you say. Bring zero cricket knowledge. Rishi brings the bat, the ball, and a lollipop. And you still get a "Heyyyy" 😉</p>
+
+    <div class="sec">Rishi's letter for you 💜</div>
+
+    <div class="letter" id="letter"></div>
+
+    <div class="promise">
+
+      <span class="tag">Remember this one thing</span>
+
+      <p>Apram oru thing, unkuda naan yeppovume irupen, nee <b>"poo"</b> nu soldra varaikum.</p>
+
+      <p>Mainly, cricket mattum illa. Unnaku Tamil solli kudukkudukurano illayo,But, unnoda serndhu naanum Kolar ah <b>Thanglish</b> pesalaam neeyum naanam, life long 💜</p>
+
+    </div>
+
+    <div class="sec">One more surprise. Scratch here 👇</div>
+
+    <div class="scratch" id="scr">
+
+      <div class="prize">
+
+        <b>🎟️ Lifetime Coupon</b>
+
+        <span>1 lollipop, any day. Unlimited patience. A "Heyyyy" whenever you want.</span>
+
+        <span class="love">Cricket mattum illa… nee dhaan en everything ❤️</span>
+
+      </div>
+
+      <canvas id="sc"></canvas>
+
+    </div>
+
+    <div class="final-reveal" id="finalReveal" hidden>
+        <b>Application status: Accepted 💜</b>
+        <p>Special person status: Irreplaceable.</p>
+        <p>Cricket was the excuse. Making a happy memory with you was the real plan. 🏏</p>
       </div>
-    </div>
-    <div class="btns" id="pnext" hidden><button id="pcont" type="button">Open the heart 💜</button></div>
-  </section>
+      <div class="sec">Oru question, unmaiya sollu 😌</div>
 
-  <section class="stage" id="s4" hidden>
-    <span class="tag">Application accepted</span>
-    <h2 id="fin"></h2>
-    <p class="note">Application link ketila, so inthu than antha link uh... Naan open pannadhu un oru slot ku dhaan, vera yaarukum illa.</p>
-    <p>First class is whenever you say. Bring zero cricket knowledge. Rishi brings the bat, the ball, and a lollipop. And you still get a "Heyyyy" 😉</p>
-    <div class="sec">Rishi's letter for you 💜</div>
-    <div class="letter" id="letter"></div>
-    <div class="promise">
-      <span class="tag">Remember this one thing</span>
-      <p>Apram oru thing, unkuda naan yeppovume irupen, nee <b>"poo"</b> nu soldra varaikum.</p>
-      <p>Mainly, cricket mattum illa. Unnaku Tamil solli kudukkudukurano illayo,But, unnoda serndhu naanum Kolar ah <b>Thanglish</b> pesalaam neeyum naanam, life long 💜</p>
-    </div>
-    <div class="sec">One more surprise. Scratch here 👇</div>
-    <div class="scratch" id="scr">
-      <div class="prize">
-        <b>🎟️ Lifetime Coupon</b>
-        <span>1 lollipop, any day. Unlimited patience. A "Heyyyy" whenever you want.</span>
-        <span class="love">Cricket mattum illa… nee dhaan en everything ❤️</span>
-      </div>
-      <canvas id="sc"></canvas>
-    </div>
-    <div class="sec">Oru question, unmaiya sollu 😌</div>
-    <p>Ipo game nee play panniya? Illa game unna vachi play pannicha?</p>
-    <div class="btns" id="tq">
-      <button id="t1" class="ghost" type="button">Naan dhaan game play pannen 😎</button>
-      <button id="t2" class="ghost" type="button">Game dhaan enna play pannichu 😂</button>
-    </div>
-    <p class="fb" id="tfb"></p>
-    <div id="when" class="when" hidden>
-      <div class="sec">First class eppo? 🏏</div>
-      <div class="btns" id="wb">
-        <button type="button" class="ghost wbtn">This weekend</button>
-        <button type="button" class="ghost wbtn">Evening</button>
-        <button type="button" class="ghost wbtn">Now 😂‚</button>
-        <button type="button" class="ghost wbtn">Rishi decide pannattum</button>
-      </div>
-    </div>
-    <div class="promise" id="plan" hidden>
-      <span class="tag">Class booked</span>
-      <p id="planTxt"></p>
-      <p>Screenshot eduthu Rishi ku anuppu 📸¸</p>
-    </div>
-    <div class="promise" id="forever" hidden>
-      <span class="tag">Oru kutty remember</span>
-      <p>Ipo mattum illa, eppovume unnoda naan ippadi dhaan irupen. <b>Unna happy ah vachitu</b> 💜</p>
-    </div>
-    <button id="again" class="ghost" type="button">Play again</button>
-  </section>
+    <p>Ipo game nee play panniya? Illa game unna vachi play pannicha?</p>
+
+    <div class="btns" id="tq">
+
+      <button id="t1" class="ghost" type="button">Naan dhaan game play pannen 😎</button>
+
+      <button id="t2" class="ghost" type="button">Game dhaan enna play pannichu 😂</button>
+
+    </div>
+
+    <p class="fb" id="tfb"></p>
+
+    <div id="when" class="when" hidden>
+
+      <div class="sec">First class eppo? 🏏</div>
+
+      <div class="btns" id="wb">
+
+        <button type="button" class="ghost wbtn">This weekend</button>
+
+        <button type="button" class="ghost wbtn">Evening</button>
+
+        <button type="button" class="ghost wbtn">Now 😂‚</button>
+
+        <button type="button" class="ghost wbtn">Rishi decide pannattum</button>
+
+      </div>
+
+    </div>
+
+    <div class="promise" id="plan" hidden>
+
+      <span class="tag">Class booked</span>
+
+      <p id="planTxt"></p>
+
+      <p>Screenshot eduthu Rishi ku anuppu 📸¸</p>
+
+    </div>
+
+    <div class="promise" id="forever" hidden>
+
+      <span class="tag">Oru kutty remember</span>
+
+      <p>Ipo mattum illa, eppovume unnoda naan ippadi dhaan irupen. <b>Unna happy ah vachitu</b> 💜</p>
+
+    </div>
+
+    <button id="again" class="ghost" type="button">Play again</button>
+
+  </section>
+
 </main>
 
+
+
 <script>
+
 (function(){
-  var $=function(id){return document.getElementById(id)};
-  var name='';
-  function show(id){['s1','s2','sq','s3','sg','sg2','sm','srt','sr','sp','s4'].forEach(function(s){$(s).hidden=s!==id});window.scrollTo(0,0)}
 
-  var msgs=[
-    'Checking 8,00,00,000 applicants…',
-    'Removing people who already know cricket…',
-    'Removing people who judge…',
-    'Removing people who hide things from Rishi…',
-    'Only one name left. Verifying…'
-  ];
-  function scan(){
-    msgs[0]='Checking 8,00,00,000 applicants for '+name+'…';
-    msgs[4]='Only one name left: '+name+'. Verifying…';
-    show('s2');
-    $('scanTitle').textContent='Scanning for the luckiest person…';
-    var i=0;
-    function step(){
-      if(i<msgs.length){
-        $('scanMsg').textContent=msgs[i];
-        $('fill').style.width=((i+1)/msgs.length*100)+'%';
-        i++;setTimeout(step,1300);
-      }else{startQuiz()}
-    }
-    $('fill').style.width='0';
-    setTimeout(step,200);
-  }
+  var $=function(id){return document.getElementById(id)};
 
-  // Interview: ok options are clickable, dodge options run away from finger/mouse
-  var Q=[
-    {q:'Bat nu spelling kettaa, polite ah solluviya?',o:[
-      ['B-A-T. 1000 vaati kettaalum solluven 😌','Perfect. Rishi already happy.',1],
-      ['Google panni solluven 😅','Honest answer. Accepted.',1],
-      ['Naan romba busy, apram pesalam',0],
-      ['Spelling ellam naan solla maaten 😏',0]]},
-    {q:'Cricket pathi nee enna alavu therinjavan?',o:[
-      ['Zero. Full zero 🥚','Super. Exactly what Rishi wanted.',1],
-      ['Six adicha mattum theriyum','Okay okay, good start.',1],
-      ['Naan Virat ku coaching kudukkuren 😎',0],
-      ['Enakku ellam theriyum, nee mooditu iru',0]]},
-    {q:'Rishi kuda time spend panna ready ah?',o:[
-      ['Daily ready 🥹','Daily nu note pannitten.',1],
-      ['Full day kooda ready','Rishi blushing 🫠',1],
-      ['Time irundha paakalam',0],
-      ['Next year yosikkalam 🤔',0]]},
-    {q:'Lollipop ah Kurkure ah?',o:[
-      ['Lollipop 🍭','Rishi will buy. Noted.',1],
-      ['Kurkure 😋','Kurkure stock ready.',1],
-      ['Rendum venam, salad podhum 🥗',0],
-      ['Naan yedhuvum saappida maaten',0]]},
-    {q:'Ethavathu Rishi kita maraikkuviya?',o:[
-      ['Illa, ellaam solluven 🤝','That is the main rule.',1],
-      ['Maraikka maaten, promise','Pinky promise accepted.',1],
-      ['Konjam maraipen 🤫',0],
-      ['Surprise ah maraipen 😜',0]]},
-    {q:'Rishi judge pannuvan nu bayama?',o:[
-      ['Illa, Rishi judge panna maatan','Correct. Zero judging.',1],
-      ['Konjam bayam, aana trust 🥹','Trust is the best answer.',1],
-      ['Judge panninaa bat ah edukkuven 🏏',0],
-      ['Aamam, bayama thaan irukku',0]]}
-  ];
-  var qi=0,locked=false;
-  var wail=['Hehe, pudikka mudiyala 😜','Hey reduuu😂','Try again 🤭','Enna diiii ithu 😂','Athu un answer illa 😌','Oduren oduren 🏃'];
-  function startQuiz(){
-    qi=0;show('sq');ask();
-  }
-  function ask(){
-    locked=false;
-    var d=Q[qi];
-    $('qn').textContent='Interview round · Question '+(qi+1)+' of '+Q.length;
-    $('qfill').style.width=(qi/Q.length*100)+'%';
-    $('qt').textContent=(qi%2===0?name+', ':'')+d.q;$('qfb').textContent='';
-    var box=$('opts');box.innerHTML='';
-    d.o.map(function(x,i){return {x:x,i:i}}).sort(function(a,b){return Math.random()-.5}).forEach(function(p){
-      var b=document.createElement('button');b.type='button';
-      b.className='opt '+(p.x[2]?'ok':'dodge');b.textContent=p.x[0];
-      if(p.x[2]){b.onclick=function(){
-        if(locked)return;locked=true;b.classList.add('picked');
-        $('qfb').textContent=p.x[1];
-        setTimeout(function(){qi++;if(qi<Q.length)ask();else{$('qfill').style.width='100%';result()}},1300);
-      }}else{
-        var n=0;
-        var run=function(e){
-          if(e)e.preventDefault();
-          n++;
-          var w=Math.min(innerWidth-60,380)*.45;
-          var x=(Math.random()<.5?-1:1)*(30+Math.random()*w*.6);
-          var y=(Math.random()-.5)*70;
-          b.style.transform='translate('+x+'px,'+y+'px) rotate('+((Math.random()-.5)*14)+'deg)';
-          $('qfb').textContent=wail[Math.floor(Math.random()*wail.length)];
-        };
-        b.addEventListener('pointerenter',run);
-        b.addEventListener('touchstart',run,{passive:false});
-        b.addEventListener('mousedown',run);
-        b.addEventListener('click',run);
-      }
-      box.appendChild(b);
-    });
-  }
+  var name='';
 
-  // Mini game
-  var gi=0,gsix=0,graf,gt0,gpos=0,gbusy=false;
-  var good=['SIX! 🎉 Rishi claps 👏','Sixer! Pro player maadhiri 😎','Boom! Stadium ey aadudhu 🔥'];
-  var bad=['Miss. Kovam illa, again 😌','Konjam late. Rishi patient ah irukkaan 🫠','Almost! 1000 vaati try pannalam 😉'];
-  function gball(){
-    $('gn').textContent='Net practice · Ball '+(gi+1)+' of 3';
-    $('gfb').textContent='Ball varudhu…';gbusy=false;$('hit').disabled=false;$('gnext').hidden=true;
-    gt0=performance.now();cancelAnimationFrame(graf);
-    var sp=620-gi*110;
-    (function f(t){
-      gpos=(Math.sin((t-gt0)/sp)+1)/2;
-      $('gb').style.left='calc('+gpos+' * (100% - 28px))';
-      graf=requestAnimationFrame(f);
-    })(gt0);
-  }
-  function startGame(){gi=0;gsix=0;show('sg');gball()}
-  $('hit').onclick=function(){
-    if(gbusy)return;gbusy=true;cancelAnimationFrame(graf);$('hit').disabled=true;
-    var six=gpos>.36&&gpos<.64;
-    if(six){gsix++;$('gfb').textContent=good[gi%3];confetti()}else{$('gfb').textContent=bad[gi%3]}
-    gi++;
-    if(gi<3){setTimeout(gball,1500)}
-    else{setTimeout(function(){
-      $('gfb').textContent=(gsix?gsix+' sixes! ':'0 sixes. ')+'Does not matter. Rishi still gives you a lollipop 🍭­';
-      $('gnext').hidden=false;
-    },1400)}
-  };
-  $('gcont').onclick=function(){startGame2()};
+  function show(id){['intro','s1','s2','sq','s3','sg','sg2','sm','srt','sr','sp','s4'].forEach(function(s){$(s).hidden=s!==id});window.scrollTo(0,0)}
 
-  // Game 2: catch the lollipops
-  var f2={score:0,t:20,items:[],last:0,cx:0,w:0,h:0,raf:0,spawn:0};
-  var happy=['Pidichitta! 🍭','Super catch 🧤','Nalla fielder 😎','Yummy! 🍿'];
-  function startGame2(){
-    show('sg2');
-    f2.items.forEach(function(o){o.el.remove()});
-    f2.items=[];f2.score=0;f2.t=20;f2.spawn=0;
-    var fld=$('field');f2.w=fld.clientWidth;f2.h=fld.clientHeight;f2.cx=f2.w/2;
-    $('catcher').style.left=f2.cx+'px';
-    $('g2fb').textContent='Ready? Pidichu kodu! 🧤';$('g2next').hidden=true;
-    $('g2s').textContent='0';$('g2t').textContent='20';
-    f2.last=performance.now();cancelAnimationFrame(f2.raf);f2.raf=requestAnimationFrame(tick2);
-  }
-  function moveCatcher(e){
-    var r=$('field').getBoundingClientRect();
-    f2.cx=Math.max(24,Math.min(f2.w-24,e.clientX-r.left));
-    $('catcher').style.left=f2.cx+'px';
-  }
-  $('field').addEventListener('pointerdown',moveCatcher);
-  $('field').addEventListener('pointermove',moveCatcher);
-  function tick2(now){
-    var dt=Math.min(.05,(now-f2.last)/1000);f2.last=now;
-    f2.t-=dt;$('g2t').textContent=Math.max(0,Math.ceil(f2.t));
-    f2.spawn-=dt;
-    if(f2.spawn<=0&&f2.t>1.5){
-      f2.spawn=.6;
-      var bad=Math.random()<.22,el=document.createElement('div'),x=24+Math.random()*(f2.w-48);
-      el.className='fall';
-      el.textContent=bad?'😡':['🍭','🍿','🍭'][Math.floor(Math.random()*3)];
-      el.style.left=x+'px';$('field').appendChild(el);
-      f2.items.push({el:el,x:x,y:-30,v:120+Math.random()*80+(20-f2.t)*5,bad:bad});
-    }
-    var cy=f2.h-50;
-    f2.items=f2.items.filter(function(o){
-      o.y+=o.v*dt;o.el.style.top=o.y+'px';
-      if(o.y>cy-14&&o.y<cy+34&&Math.abs(o.x-f2.cx)<40){
-        if(o.bad){f2.score=Math.max(0,f2.score-1);$('g2fb').textContent='Aiyo, 😡 pidichitiye! Rishi kovame padaadhu 😌'}
-        else{f2.score++;$('g2fb').textContent=happy[f2.score%4]}
-        $('g2s').textContent=f2.score;o.el.remove();return false;
-      }
-      if(o.y>f2.h){o.el.remove();return false}
-      return true;
-    });
-    if(f2.t<=0){endGame2()}else{f2.raf=requestAnimationFrame(tick2)}
-  }
-  function endGame2(){
-    f2.items.forEach(function(o){o.el.remove()});f2.items=[];
-    $('g2t').textContent='0';
-    $('g2fb').textContent=f2.score+' caught! Rishi kita innum niraya lollipop iruku 🍭💜';
-    $('g2next').hidden=false;confetti();
-  }
-  $('g2cont').onclick=function(){startMemory()};
 
-  // Game 3: memory match
-  var mFirst=null,mLock=false,mMoves=0,mPairs=0;
-  function startMemory(){
-    show('sm');mFirst=null;mLock=false;mMoves=0;mPairs=0;
-    $('mm').textContent='0';$('mp').textContent='0';$('mfb').textContent='';$('mnext').hidden=true;
-    var deck=['🏏','🍭','💜','🧤','🍿','🏆'];deck=deck.concat(deck);
-    for(var i=deck.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=deck[i];deck[i]=deck[j];deck[j]=t}
-    var g=$('mgrid');g.innerHTML='';
-    deck.forEach(function(v){
-      var b=document.createElement('button');b.type='button';b.className='mc';b.textContent='?';b.setAttribute('data-v',v);
-      b.onclick=function(){
-        if(mLock||b.classList.contains('up')||b.classList.contains('done'))return;
-        b.classList.add('up');b.textContent=v;
-        if(!mFirst){mFirst=b;return}
-        mMoves++;$('mm').textContent=mMoves;
-        var a=mFirst;mFirst=null;
-        if(a.getAttribute('data-v')===v){
-          a.classList.remove('up');b.classList.remove('up');a.classList.add('done');b.classList.add('done');
-          mPairs++;$('mp').textContent=mPairs;$('mfb').textContent=['Match! 💜','Super memory 😎','Nalla pidichita 🥹'][mPairs%3];
-          if(mPairs===6){$('mfb').textContent='Ellam match! '+mMoves+' moves la. Rishi proud 🥹';$('mnext').hidden=false;confetti()}
-        }else{
-          mLock=true;$('mfb').textContent='Illa, again try pannu 😌';
-          setTimeout(function(){a.classList.remove('up');b.classList.remove('up');a.textContent='?';b.textContent='?';mLock=false},800);
-        }
-      };
-      g.appendChild(b);
-    });
-  }
-  $('mcont').onclick=function(){startRating()};
 
-  // Rate your coach: any star gives 5
-  function startRating(){
-    show('srt');$('rtnext').hidden=true;$('rtfb').textContent='';
-    var box=$('stars');box.innerHTML='';
-    var done=false;
-    for(var i=1;i<=5;i++){
-      (function(n){
-        var s=document.createElement('button');s.type='button';s.className='star';s.textContent='★';
-        s.onclick=function(){
-          if(done)return;done=true;
-          var all=box.querySelectorAll('.star');
-          for(var k=0;k<n;k++)all[k].classList.add('on');
-          $('rtfb').textContent=n<5?'Hmm… '+n+' star ah? Rishi system la 5 nu update pannitaan 😌':'5 stars! Rishi Coach aagitaan 🥹';
-          setTimeout(function(){
-            for(var k=0;k<5;k++)all[k].classList.add('on');
-            $('rtfb').textContent='Final rating: 5 / 5 ⭐ Coach Rishi, forever 💜';
-            $('rtnext').hidden=false;confetti();
-          },n<5?1600:600);
-        };
-        box.appendChild(s);
-      })(i);
-    }
-  }
-  $('rtcont').onclick=function(){startReasons()};
+  var msgs=[
 
-  // Reason cards
-  var R=[
-    ['Un sirippu',' unnaku yepdi nu therla but Nee sirichaa, en day set aagidum 💜'],
-    ['Un doubts','1000 nee doubt kettaalum cute dhaan 😌'],
-    ['Un kooda time','Time pogardhe theriyaadhu(intha time apdiyea freeze aagidanum nu thonum) but until un watch ah nee paakura varaikum'],
-    ['Un unmai','Ellaathayum solra unna maathri yaarum illa'],
-    ['Un Thanglish','Tamil English kalandhu kolar ah pesura style, super 🤭'],
-    ['Simply nee','(PREETHI JOE) ngra Nee mattum than... Adhukku mela enna venum? 💜']
-  ];
-  var opened=0;
-  function startReasons(){
-    show('sr');opened=0;$('rnext').hidden=true;
-    var box=$('cards');box.innerHTML='';
-    R.forEach(function(c){
-      var b=document.createElement('button');b.type='button';b.className='rc';
-      b.innerHTML='<b></b><em>Tap pannu 👆</em><span></span>';
-      b.querySelector('b').textContent=c[0];b.querySelector('span').textContent=c[1];
-      b.onclick=function(){
-        if(b.classList.contains('open'))return;
-        b.classList.add('open');opened++;
-        if(opened===R.length){$('rnext').hidden=false;confetti()}
-      };
-      box.appendChild(b);
-    });
-  }
-  $('rcont').onclick=function(){startPassword()};
+    'Checking 8,00,00,000 applicants…',
 
-  // Password game: story clues, jersey task, "adiyea" on a wrong try
-  var PASS='Rishi2225CricketPreethiJoe';
-  var PARTS=['Rishi','22','25','Cricket','PreethiJoe'];
-  var CL=[
-    'Idhu yaaroda heart? Avan per dhaan password oda modhal part 😏',
-    'Ennoda day , unnoda day ... Rendayum pakkathula pakkathula vechu paaru 😉',
-    'Enakku romba pudicha game edhu? 🏏',
-    'Enakku romba pudicha person yaaru? Un per dhaana so yen yosikra type pannu, "Preethi Joe"  💜'
-  ];
-  var shown=0,wrongs=0,tIdx=0,pwDone=false,actx=null;
+    'Removing people who already know cricket…',
 
-  
-  var voiceAudio = new Audio();
-  var voiceQueue = [];
-  var isVoicePlaying = false;
+    'Removing people who judge…',
 
-  function playVoice(file) {
-    voiceQueue.push(file);
-    playNextVoice();
-  }
+    'Removing people who hide things from Rishi…',
 
-  function playNextVoice() {
-    if (isVoicePlaying || voiceQueue.length === 0) return;
+    'Only one name left. Verifying…'
 
-    isVoicePlaying = true;
-    voiceAudio.src = voiceQueue.shift();
+  ];
 
-    voiceAudio.onended = function () {
-      isVoicePlaying = false;
-      playNextVoice();
-    };
+  function scan(){
 
-    voiceAudio.onerror = function () {
-      isVoicePlaying = false;
-      console.error('Audio failed:', voiceAudio.src);
-      playNextVoice();
-    };
+    msgs[0]='Checking 8,00,00,000 applicants for '+name+'…';
 
-    voiceAudio.play().catch(function (error) {
-      isVoicePlaying = false;
-      console.error('Audio playback failed:', error);
-      playNextVoice();
-    });
-  }
+    msgs[4]='Only one name left: '+name+'. Verifying…';
 
-  function adiyea() {
-    if (wrongs === 1) {
-      playVoice('Save.m4a');
-    } else if (wrongs === 2) {
-      playVoice('Savee.m4a');
-    } else {
-      playVoice('Saveee.m4a');
-    }
-  }
+    show('s2');
 
-  function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+    $('scanTitle').textContent='Scanning for the luckiest person…';
 
-  function startPassword(){
-    show('sp');
-    shown=0;wrongs=0;tIdx=0;pwDone=false;
-    $('pw').value='';$('pw').disabled=false;$('lock').textContent='🔒';$('lock').className='';
-    $('ph').textContent="Rishi's heart is locked";
-    $('clues').innerHTML='';$('pmsg').textContent='';$('task').hidden=true;$('pwshow').hidden=true;
-    $('pnext').hidden=true;$('pbtns').hidden=false;$('hint').textContent='Hint kudu 🥺';
-  }
-  function renderClues(){
-    $('clues').innerHTML=CL.slice(0,shown).map(function(c,i){return '<li><i>'+(i+1)+'</i><span></span></li>'}).join('');
-    var spans=$('clues').querySelectorAll('span');
-    for(var i=0;i<shown;i++)spans[i].textContent=CL[i];
-  }
-  $('hint').onclick=function(){
-    if(shown<CL.length){
-      shown++;renderClues();
-      if(shown===CL.length)$('hint').textContent='Simple task kudu 🏏';
-    }else{startTask()}
-  };
-  $('unlock').onclick=function(){
-    var v=$('pw').value.toLowerCase().replace(/\s+/g,'');
-    if(v===PASS.toLowerCase()){
-      pwDone=true;$('pw').disabled=true;
-      playVoice('Saveee.m4a');
-      $('lock').textContent='💜';$('lock').className='open';
-      $('ph').textContent='Heart unlocked!';$('pmsg').textContent='';
-      $('pbtns').hidden=true;$('task').hidden=true;$('pnext').hidden=false;confetti();
-    }else{
-      wrongs++;adiyea();shake($('pw'));
-      $('pmsg').textContent=wrongs>=3?'Adiyea! 😤 Thappu. Hint kudu button ah press pannu, help pannuren.':'Adiyea! 😤 Thappu. Innoru vaati try pannu.';
-    }
-  };
-  $('pw').addEventListener('keydown',function(e){if(e.key==='Enter')$('unlock').click()});
+    var i=0;
 
-  function startTask(){
-    $('task').hidden=false;tIdx=0;$('jn').textContent='';$('tmsg').textContent='';$('pwshow').hidden=true;
-    var arr=PARTS.slice();
-    for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=arr[i];arr[i]=arr[j];arr[j]=t}
-    var box=$('tiles');box.innerHTML='';
-    arr.forEach(function(part){
-      var b=document.createElement('button');b.type='button';b.className='tile';b.textContent=part;
-      b.onclick=function(){
-        if(part===PARTS[tIdx]){
-          b.disabled=true;tIdx++;$('jn').textContent=PARTS.slice(0,tIdx).join('');
-          $('tmsg').textContent=['Super 😎','Correct 💜','Pakkathula varudhu 🏏','Ore oru part 🥹'][Math.min(tIdx-1,3)];
-          if(tIdx===PARTS.length){
-            $('tmsg').textContent='Jersey ready! 🎉';$('pwtxt').textContent=PASS;$('pwshow').hidden=false;confetti();
-          }
-        }else{
-          playVoice('Save.m4a');shake(b);$('tmsg').textContent='Adiyea! 😤 Order thappu, clue paaru.';
-        }
-      };
-      box.appendChild(b);
-    });
-    $('task').scrollIntoView({behavior:'smooth',block:'nearest'});
-  }
+    function step(){
 
-  // Finale: truth question, class picker, forever note
-  function resetFinale(){
-    $('tfb').textContent='';$('when').hidden=true;$('plan').hidden=true;$('forever').hidden=true;
-    ['t1','t2'].forEach(function(id){$(id).disabled=false});
-    document.querySelectorAll('.wbtn').forEach(function(b){b.disabled=false});
-  }
-  function truth(msg){
-    $('t1').disabled=true;$('t2').disabled=true;$('tfb').textContent=msg;
-    setTimeout(function(){$('when').hidden=false},900);
-  }
-  $('t1').onclick=function(){truth('Hmm, nambitten 😏 Aana game kooda Rishi um serndhu unna jeikka vittanga 💜')};
-  $('t2').onclick=function(){truth('Hahaha, adhaan unmai! Rishi plan la ellam set 😌')};
-  document.querySelectorAll('.wbtn').forEach(function(b){
-    b.onclick=function(){
-      document.querySelectorAll('.wbtn').forEach(function(x){x.disabled=true});
-      b.style.borderColor='var(--gold)';b.style.color='var(--gold)';
-      $('planTxt').textContent=name+' · First class: '+b.textContent;
-      $('plan').hidden=false;
-      setTimeout(function(){$('forever').hidden=false;confetti()},900);
-    };
-  });
-  $('pcont').onclick=function(){
-    resetFinale();
-    $('fin').textContent='Slot confirmed, '+name+' 🏏';
-    show('s4');confetti();initScratch();typeLetter();
-  };
-  var ltimer;
-  function typeLetter(){
-    var t=name+',\n\nCricket ennaku professinal aah rmba pudikum but ennaku personal pudikurathu ....when ennaku pudicha person kuda naan play pannanum poothu mattum than...so, Neenga rishi kuda play panna varuvingala? aprm...Un kooda time spend panna oru reason poothum... Nee ketkura ovvoru doubt kum 1000 vaati kooda kovam illama solla naan ready...but apo apo madam enkitta knjm sirichingana ennakum yen health kum knjm nalla erukum nga aprm innum neruya eruku solla but ithu application ngratha maranthutu naan ivlo type pannitan nga but ithu poothum inth application ku...\n\nNee yeppadi irundhaalum, enakku nee dhaan everything,etc.... 💜\n\n- Rishi';
-    var el=$('letter'),i=0;el.textContent='';clearInterval(ltimer);
-    ltimer=setInterval(function(){el.textContent=t.slice(0,++i);if(i>=t.length)clearInterval(ltimer)},45);
-  }
+      if(i<msgs.length){
 
-  // Floating hearts
-  setInterval(function(){
-    if(document.hidden||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-    var h=document.createElement('span');h.className='heart';
-    h.textContent=['💜','💗','🏏','💜'][Math.floor(Math.random()*4)];
-    h.style.left=Math.random()*100+'vw';h.style.fontSize=(14+Math.random()*16)+'px';
-    h.style.animationDuration=(7+Math.random()*6)+'s';
-    document.body.appendChild(h);setTimeout(function(){h.remove()},14000);
-  },1100);
+        $('scanMsg').textContent=msgs[i];
 
-  // Scratch card
-  var sc=$('sc'),sg=sc.getContext('2d'),scratching=false,cleared=false;
-  function initScratch(){
-    var w=$('scr').clientWidth,h=$('scr').clientHeight;
-    sc.width=w;sc.height=h;cleared=false;sc.style.opacity=1;sc.style.pointerEvents='auto';
-    var g=sg.createLinearGradient(0,0,w,h);g.addColorStop(0,'#b9bec0');g.addColorStop(.5,'#e8ebec');g.addColorStop(1,'#9ea5a8');
-    sg.globalCompositeOperation='source-over';sg.fillStyle=g;sg.fillRect(0,0,w,h);
-    sg.fillStyle='#4b3a70';sg.font='700 18px DM Sans, sans-serif';sg.textAlign='center';
-    sg.fillText('Scratch here 🏏',w/2,h/2+6);
-  }
-  function scrub(e){
-    if(!scratching||cleared)return;
-    var r=sc.getBoundingClientRect();
-    sg.globalCompositeOperation='destination-out';
-    sg.beginPath();sg.arc(e.clientX-r.left,e.clientY-r.top,22,0,7);sg.fill();
-    checkScratch();
-  }
-  var chk=0;
-  function checkScratch(){
-    if(++chk%6)return;
-    var d=sg.getImageData(0,0,sc.width,sc.height).data,c=0;
-    for(var i=3;i<d.length;i+=64)if(d[i]===0)c++;
-    if(c/(d.length/64)>.4){cleared=true;sc.style.opacity=0;sc.style.pointerEvents='none';confetti()}
-  }
-  sc.addEventListener('pointerdown',function(e){scratching=true;sc.setPointerCapture(e.pointerId);scrub(e)});
-  sc.addEventListener('pointermove',scrub);
-  sc.addEventListener('pointerup',function(){scratching=false});
-  sc.addEventListener('pointercancel',function(){scratching=false});
+        $('fill').style.width=((i+1)/msgs.length*100)+'%';
 
-  function reveal(list,done){
-    var items=list.querySelectorAll('li'),k=0;
-    (function next(){
-      if(k<items.length){items[k++].classList.add('on');setTimeout(next,550)}else if(done){done()}
-    })();
-  }
-  function result(){
-    $('win').textContent='Congratulations, '+name+'! 🎉';
-    document.querySelectorAll('.list li').forEach(function(li){li.classList.remove('on')});
-    $('match').hidden=true;$('choice').hidden=true;
-    show('s3');confetti();
-    setTimeout(function(){
-      reveal($('l1'),function(){reveal($('l2'),function(){
-        $('match').hidden=false;$('choice').hidden=false;
-      })});
-    },1200);
-  }
+        i++;setTimeout(step,1300);
+
+      }else{startQuiz()}
+
+    }
+
+    $('fill').style.width='0';
+
+    setTimeout(step,200);
+
+  }
+
+
+
+  // Interview: ok options are clickable, dodge options run away from finger/mouse
+
+  var Q=[
+
+    {q:'Bat nu spelling kettaa, polite ah solluviya?',o:[
+
+      ['B-A-T. 1000 vaati kettaalum solluven 😌','Perfect. Rishi already happy.',1],
+
+      ['Google panni solluven 😅','Honest answer. Accepted.',1],
+
+      ['Naan romba busy, apram pesalam',0],
+
+      ['Spelling ellam naan solla maaten 😏',0]]},
+
+    {q:'Cricket pathi nee enna alavu therinjavan?',o:[
+
+      ['Zero. Full zero 🥚','Super. Exactly what Rishi wanted.',1],
+
+      ['Six adicha mattum theriyum','Okay okay, good start.',1],
+
+      ['Naan Virat ku coaching kudukkuren 😎',0],
+
+      ['Enakku ellam theriyum, nee mooditu iru',0]]},
+
+    {q:'Rishi kuda time spend panna ready ah?',o:[
+
+      ['Daily ready 🥹','Daily nu note pannitten.',1],
+
+      ['Full day kooda ready','Rishi blushing 🫠',1],
+
+      ['Time irundha paakalam',0],
+
+      ['Next year yosikkalam 🤔',0]]},
+
+    {q:'Lollipop ah Kurkure ah?',o:[
+
+      ['Lollipop 🍭','Rishi will buy. Noted.',1],
+
+      ['Kurkure 😋','Kurkure stock ready.',1],
+
+      ['Rendum venam, salad podhum 🥗',0],
+
+      ['Naan yedhuvum saappida maaten',0]]},
+
+    {q:'Ethavathu Rishi kita maraikkuviya?',o:[
+
+      ['Illa, ellaam solluven 🤝','That is the main rule.',1],
+
+      ['Maraikka maaten, promise','Pinky promise accepted.',1],
+
+      ['Konjam maraipen 🤫',0],
+
+      ['Surprise ah maraipen 😜',0]]},
+
+    {q:'Rishi judge pannuvan nu bayama?',o:[
+
+      ['Illa, Rishi judge panna maatan','Correct. Zero judging.',1],
+
+      ['Konjam bayam, aana trust 🥹','Trust is the best answer.',1],
+
+      ['Judge panninaa bat ah edukkuven 🏏',0],
+
+      ['Aamam, bayama thaan irukku',0]]}
+
+  ];
+
+  var qi=0,locked=false;
+
+  var wail=['Hehe, pudikka mudiyala 😜','Hey reduuu😂','Try again 🤭','Enna diiii ithu 😂','Athu un answer illa 😌','Oduren oduren 🏃'];
+
+  function startQuiz(){
+
+    qi=0;show('sq');ask();
+
+  }
+
+  function ask(){
+
+    locked=false;
+
+    var d=Q[qi];
+
+    $('qn').textContent='Interview round · Question '+(qi+1)+' of '+Q.length;
+
+    $('qfill').style.width=(qi/Q.length*100)+'%';
+
+    $('qt').textContent=(qi%2===0?name+', ':'')+d.q;$('qfb').textContent='';
+
+    var box=$('opts');box.innerHTML='';
+
+    d.o.map(function(x,i){return {x:x,i:i}}).sort(function(a,b){return Math.random()-.5}).forEach(function(p){
+
+      var b=document.createElement('button');b.type='button';
+
+      b.className='opt '+(p.x[2]?'ok':'dodge');b.textContent=p.x[0];
+
+      if(p.x[2]){b.onclick=function(){
+
+        if(locked)return;locked=true;b.classList.add('picked');
+
+        $('qfb').textContent=p.x[1];
+
+        setTimeout(function(){qi++;if(qi<Q.length)ask();else{$('qfill').style.width='100%';result()}},1300);
+
+      }}else{
+
+        var n=0;
+
+        var run=function(e){
+
+          if(e)e.preventDefault();
+
+          n++;
+
+          var w=Math.min(innerWidth-60,380)*.45;
+
+          var x=(Math.random()<.5?-1:1)*(30+Math.random()*w*.6);
+
+          var y=(Math.random()-.5)*70;
+
+          b.style.transform='translate('+x+'px,'+y+'px) rotate('+((Math.random()-.5)*14)+'deg)';
+
+          $('qfb').textContent=wail[Math.floor(Math.random()*wail.length)];
+
+        };
+
+        b.addEventListener('pointerenter',run);
+
+        b.addEventListener('touchstart',run,{passive:false});
+
+        b.addEventListener('mousedown',run);
+
+        b.addEventListener('click',run);
+
+      }
+
+      box.appendChild(b);
+
+    });
+
+  }
+
+
+
+  // Mini game
+
+  var gi=0,gsix=0,graf,gt0,gpos=0,gbusy=false;
+
+  var good=['SIX! 🎉 Rishi claps 👏','Sixer! Pro player maadhiri 😎','Boom! Stadium ey aadudhu 🔥'];
+
+  var bad=['Miss. Kovam illa, again 😌','Konjam late. Rishi patient ah irukkaan 🫠','Almost! 1000 vaati try pannalam 😉'];
+
+  function gball(){
+
+    $('gn').textContent='Net practice · Ball '+(gi+1)+' of 3';
+
+    $('gfb').textContent='Ball varudhu…';gbusy=false;$('hit').disabled=false;$('gnext').hidden=true;
+
+    gt0=performance.now();cancelAnimationFrame(graf);
+
+    var sp=620-gi*110;
+
+    (function f(t){
+
+      gpos=(Math.sin((t-gt0)/sp)+1)/2;
+
+      $('gb').style.left='calc('+gpos+' * (100% - 28px))';
+
+      graf=requestAnimationFrame(f);
+
+    })(gt0);
+
+  }
+
+  function startGame(){gi=0;gsix=0;show('sg');gball()}
+
+  $('hit').onclick=function(){
+
+    if(gbusy)return;gbusy=true;cancelAnimationFrame(graf);$('hit').disabled=true;
+
+    var six=gpos>.36&&gpos<.64;
+
+    if(six){gsix++;$('gfb').textContent=good[gi%3];confetti()}else{$('gfb').textContent=bad[gi%3]}
+
+    gi++;
+
+    if(gi<3){setTimeout(gball,1500)}
+
+    else{setTimeout(function(){
+
+      $('gfb').textContent=(gsix?gsix+' sixes! ':'0 sixes. ')+'Does not matter. Rishi still gives you a lollipop 🍭­';
+
+      $('gnext').hidden=false;
+
+    },1400)}
+
+  };
+
+  $('gcont').onclick=function(){startGame2()};
+
+
+
+  // Game 2: catch the lollipops
+
+  var f2={score:0,t:20,items:[],last:0,cx:0,w:0,h:0,raf:0,spawn:0};
+
+  var happy=['Pidichitta! 🍭','Super catch 🧤','Nalla fielder 😎','Yummy! 🍿'];
+
+  function startGame2(){
+
+    show('sg2');
+
+    f2.items.forEach(function(o){o.el.remove()});
+
+    f2.items=[];f2.score=0;f2.t=20;f2.spawn=0;
+
+    var fld=$('field');f2.w=fld.clientWidth;f2.h=fld.clientHeight;f2.cx=f2.w/2;
+
+    $('catcher').style.left=f2.cx+'px';
+
+    $('g2fb').textContent='Ready? Pidichu kodu! 🧤';$('g2next').hidden=true;
+
+    $('g2s').textContent='0';$('g2t').textContent='20';
+
+    f2.last=performance.now();cancelAnimationFrame(f2.raf);f2.raf=requestAnimationFrame(tick2);
+
+  }
+
+  function moveCatcher(e){
+
+    var r=$('field').getBoundingClientRect();
+
+    f2.cx=Math.max(24,Math.min(f2.w-24,e.clientX-r.left));
+
+    $('catcher').style.left=f2.cx+'px';
+
+  }
+
+  $('field').addEventListener('pointerdown',moveCatcher);
+
+  $('field').addEventListener('pointermove',moveCatcher);
+
+  function tick2(now){
+
+    var dt=Math.min(.05,(now-f2.last)/1000);f2.last=now;
+
+    f2.t-=dt;$('g2t').textContent=Math.max(0,Math.ceil(f2.t));
+
+    f2.spawn-=dt;
+
+    if(f2.spawn<=0&&f2.t>1.5){
+
+      f2.spawn=.6;
+
+      var bad=Math.random()<.22,el=document.createElement('div'),x=24+Math.random()*(f2.w-48);
+
+      el.className='fall';
+
+      el.textContent=bad?'😡':['🍭','🍿','🍭'][Math.floor(Math.random()*3)];
+
+      el.style.left=x+'px';$('field').appendChild(el);
+
+      f2.items.push({el:el,x:x,y:-30,v:120+Math.random()*80+(20-f2.t)*5,bad:bad});
+
+    }
+
+    var cy=f2.h-50;
+
+    f2.items=f2.items.filter(function(o){
+
+      o.y+=o.v*dt;o.el.style.top=o.y+'px';
+
+      if(o.y>cy-14&&o.y<cy+34&&Math.abs(o.x-f2.cx)<40){
+
+        if(o.bad){f2.score=Math.max(0,f2.score-1);$('g2fb').textContent='Aiyo, 😡 pidichitiye! Rishi kovame padaadhu 😌'}
+
+        else{f2.score++;$('g2fb').textContent=happy[f2.score%4]}
+
+        $('g2s').textContent=f2.score;o.el.remove();return false;
+
+      }
+
+      if(o.y>f2.h){o.el.remove();return false}
+
+      return true;
+
+    });
+
+    if(f2.t<=0){endGame2()}else{f2.raf=requestAnimationFrame(tick2)}
+
+  }
+
+  function endGame2(){
+
+    f2.items.forEach(function(o){o.el.remove()});f2.items=[];
+
+    $('g2t').textContent='0';
+
+    $('g2fb').textContent=f2.score+' caught! Rishi kita innum niraya lollipop iruku 🍭💜';
+
+    $('g2next').hidden=false;confetti();
+
+  }
+
+  $('g2cont').onclick=function(){startMemory()};
+
+
+
+  // Game 3: memory match
+
+  var mFirst=null,mLock=false,mMoves=0,mPairs=0;
+
+  function startMemory(){
+
+    show('sm');mFirst=null;mLock=false;mMoves=0;mPairs=0;
+
+    $('mm').textContent='0';$('mp').textContent='0';$('mfb').textContent='';$('mnext').hidden=true;
+
+    var deck=['🏏','🍭','💜','🧤','🍿','🏆'];deck=deck.concat(deck);
+
+    for(var i=deck.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=deck[i];deck[i]=deck[j];deck[j]=t}
+
+    var g=$('mgrid');g.innerHTML='';
+
+    deck.forEach(function(v){
+
+      var b=document.createElement('button');b.type='button';b.className='mc';b.textContent='?';b.setAttribute('data-v',v);
+
+      b.onclick=function(){
+
+        if(mLock||b.classList.contains('up')||b.classList.contains('done'))return;
+
+        b.classList.add('up');b.textContent=v;
+
+        if(!mFirst){mFirst=b;return}
+
+        mMoves++;$('mm').textContent=mMoves;
+
+        var a=mFirst;mFirst=null;
+
+        if(a.getAttribute('data-v')===v){
+
+          a.classList.remove('up');b.classList.remove('up');a.classList.add('done');b.classList.add('done');
+
+          mPairs++;$('mp').textContent=mPairs;$('mfb').textContent=['Match! 💜','Super memory 😎','Nalla pidichita 🥹'][mPairs%3];
+
+          if(mPairs===6){$('mfb').textContent='Ellam match! '+mMoves+' moves la. Rishi proud 🥹';$('mnext').hidden=false;confetti()}
+
+        }else{
+
+          mLock=true;$('mfb').textContent='Illa, again try pannu 😌';
+
+          setTimeout(function(){a.classList.remove('up');b.classList.remove('up');a.textContent='?';b.textContent='?';mLock=false},800);
+
+        }
+
+      };
+
+      g.appendChild(b);
+
+    });
+
+  }
+
+  $('mcont').onclick=function(){startRating()};
+
+
+
+  // Rate your coach: any star gives 5
+
+  function startRating(){
+
+    show('srt');$('rtnext').hidden=true;$('rtfb').textContent='';
+
+    var box=$('stars');box.innerHTML='';
+
+    var done=false;
+
+    for(var i=1;i<=5;i++){
+
+      (function(n){
+
+        var s=document.createElement('button');s.type='button';s.className='star';s.textContent='★';
+
+        s.onclick=function(){
+
+          if(done)return;done=true;
+
+          var all=box.querySelectorAll('.star');
+
+          for(var k=0;k<n;k++)all[k].classList.add('on');
+
+          $('rtfb').textContent=n<5?'Hmm… '+n+' star ah? Rishi system la 5 nu update pannitaan 😌':'5 stars! Rishi Coach aagitaan 🥹';
+
+          setTimeout(function(){
+
+            for(var k=0;k<5;k++)all[k].classList.add('on');
+
+            $('rtfb').textContent='Final rating: 5 / 5 ⭐ Coach Rishi, forever 💜';
+
+            $('rtnext').hidden=false;confetti();
+
+          },n<5?1600:600);
+
+        };
+
+        box.appendChild(s);
+
+      })(i);
+
+    }
+
+  }
+
+  $('rtcont').onclick=function(){startReasons()};
+
+
+
+  // Reason cards
+
+  var R=[
+
+    ['Un sirippu',' unnaku yepdi nu therla but Nee sirichaa, en day set aagidum 💜'],
+
+    ['Un doubts','1000 nee doubt kettaalum cute dhaan 😌'],
+
+    ['Un kooda time','Time pogardhe theriyaadhu(intha time apdiyea freeze aagidanum nu thonum) but until un watch ah nee paakura varaikum'],
+
+    ['Un unmai','Ellaathayum solra unna maathri yaarum illa'],
+
+    ['Un Thanglish','Tamil English kalandhu kolar ah pesura style, super 🤭'],
+
+    ['Simply nee','(PREETHI JOE) ngra Nee mattum than... Adhukku mela enna venum? 💜']
+
+  ];
+
+  var opened=0;
+
+  function startReasons(){
+
+    show('sr');opened=0;$('rnext').hidden=true;
+
+    var box=$('cards');box.innerHTML='';
+
+    R.forEach(function(c){
+
+      var b=document.createElement('button');b.type='button';b.className='rc';
+
+      b.innerHTML='<b></b><em>Tap pannu 👆</em><span></span>';
+
+      b.querySelector('b').textContent=c[0];b.querySelector('span').textContent=c[1];
+
+      b.onclick=function(){
+
+        if(b.classList.contains('open'))return;
+
+        b.classList.add('open');opened++;
+
+        if(opened===R.length){$('rnext').hidden=false;confetti()}
+
+      };
+
+      box.appendChild(b);
+
+    });
+
+  }
+
+  $('rcont').onclick=function(){startPassword()};
+
+
+
+  // Password game: story clues, jersey task, "adiyea" on a wrong try
+
+  var PASS='Rishi2225CricketPreethiJoe';
+
+  var PARTS=['Rishi','22','25','Cricket','PreethiJoe'];
+
+  var CL=[
+
+    'Idhu yaaroda heart? Avan per dhaan password oda modhal part 😏',
+
+    'Ennoda day , unnoda day ... Rendayum pakkathula pakkathula vechu paaru 😉',
+
+    'Enakku romba pudicha game edhu? 🏏',
+
+    'Enakku romba pudicha person yaaru? Un per dhaana so yen yosikra type pannu, "Preethi Joe"  💜'
+
+  ];
+
+  var shown=0,wrongs=0,tIdx=0,pwDone=false,actx=null;
+
+
+
+
+
+  var voiceAudio = new Audio();
+
+  var voiceQueue = [];
+
+  var isVoicePlaying = false;
+
+
+
+  function playVoice(file) {
+
+    voiceQueue.push(file);
+
+    playNextVoice();
+
+  }
+
+
+
+  function playNextVoice() {
+
+    if (isVoicePlaying || voiceQueue.length === 0) return;
+
+
+
+    isVoicePlaying = true;
+
+    voiceAudio.src = voiceQueue.shift();
+
+
+
+    voiceAudio.onended = function () {
+
+      isVoicePlaying = false;
+
+      playNextVoice();
+
+    };
+
+
+
+    voiceAudio.onerror = function () {
+
+      isVoicePlaying = false;
+
+      console.error('Audio failed:', voiceAudio.src);
+
+      playNextVoice();
+
+    };
+
+
+
+    voiceAudio.play().catch(function (error) {
+
+      isVoicePlaying = false;
+
+      console.error('Audio playback failed:', error);
+
+      playNextVoice();
+
+    });
+
+  }
+
+
+
+  function adiyea() {
+
+    if (wrongs === 1) {
+
+      playVoice('Save.m4a');
+
+    } else if (wrongs === 2) {
+
+      playVoice('Savee.m4a');
+
+    } 
+
+  }
+
+
+
+  function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
+
+
+
+  function startPassword(){
+
+    show('sp');
+
+    shown=0;wrongs=0;tIdx=0;pwDone=false;
+
+    $('pw').value='';$('pw').disabled=false;$('lock').textContent='🔒';$('lock').className='';
+
+    $('ph').textContent="Rishi's heart is locked";
+
+    $('clues').innerHTML='';$('pmsg').textContent='';$('task').hidden=true;$('pwshow').hidden=true;
+
+    $('pnext').hidden=true;$('pbtns').hidden=false;$('hint').textContent='Hint kudu 🥺';
+
+  }
+
+  function renderClues(){
+
+    $('clues').innerHTML=CL.slice(0,shown).map(function(c,i){return '<li><i>'+(i+1)+'</i><span></span></li>'}).join('');
+
+    var spans=$('clues').querySelectorAll('span');
+
+    for(var i=0;i<shown;i++)spans[i].textContent=CL[i];
+
+  }
+
+  $('hint').onclick=function(){
+
+    if(shown<CL.length){
+
+      shown++;renderClues();
+
+      if(shown===CL.length)$('hint').textContent='Simple task kudu 🏏';
+
+    }else{startTask()}
+
+  };
+
+  $('unlock').onclick=function(){
+
+    var v=$('pw').value.toLowerCase().replace(/\s+/g,'');
+
+    if(v===PASS.toLowerCase()){
+
+      pwDone=true;$('pw').disabled=true;
+
+      playVoice('Saveee.m4a');
+
+      $('lock').textContent='💜';$('lock').className='open';
+
+      $('ph').textContent='Heart unlocked!';$('pmsg').textContent='';
+
+      $('pbtns').hidden=true;$('task').hidden=true;$('pnext').hidden=false;confetti();
+
+    }else{
+
+      wrongs++;adiyea();shake($('pw'));
+
+      $('pmsg').textContent=wrongs>=3?'Adiyea! 😤 Thappu. Hint kudu button ah press pannu, help pannuren.':'Adiyea! 😤 Thappu. Innoru vaati try pannu.';
+
+    }
+
+  };
+
+  $('pw').addEventListener('keydown',function(e){if(e.key==='Enter')$('unlock').click()});
+
+
+
+  function startTask(){
+
+    $('task').hidden=false;tIdx=0;$('jn').textContent='';$('tmsg').textContent='';$('pwshow').hidden=true;
+
+    var arr=PARTS.slice();
+
+    for(var i=arr.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=arr[i];arr[i]=arr[j];arr[j]=t}
+
+    var box=$('tiles');box.innerHTML='';
+
+    arr.forEach(function(part){
+
+      var b=document.createElement('button');b.type='button';b.className='tile';b.textContent=part;
+
+      b.onclick=function(){
+
+        if(part===PARTS[tIdx]){
+
+          b.disabled=true;tIdx++;$('jn').textContent=PARTS.slice(0,tIdx).join('');
+
+          $('tmsg').textContent=['Super 😎','Correct 💜','Pakkathula varudhu 🏏','Ore oru part 🥹'][Math.min(tIdx-1,3)];
+
+          if(tIdx===PARTS.length){
+
+            $('tmsg').textContent='Jersey ready! 🎉';$('pwtxt').textContent=PASS;$('pwshow').hidden=false;confetti();
+
+          }
+
+        }else{
+
+          playVoice('Save.m4a');shake(b);$('tmsg').textContent='Adiyea! 😤 Order thappu, clue paaru.';
+
+        }
+
+      };
+
+      box.appendChild(b);
+
+    });
+
+    $('task').scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  }
+
+
+
+  // Finale: truth question, class picker, forever note
+
+  function resetFinale(){
+
+    $('tfb').textContent='';$('when').hidden=true;$('plan').hidden=true;$('forever').hidden=true;
+
+    ['t1','t2'].forEach(function(id){$(id).disabled=false});
+
+    document.querySelectorAll('.wbtn').forEach(function(b){b.disabled=false});
+
+  }
+
+  function truth(msg){
+
+    $('t1').disabled=true;$('t2').disabled=true;$('tfb').textContent=msg;
+
+    setTimeout(function(){$('when').hidden=false},900);
+
+  }
+
+  $('t1').onclick=function(){truth('Hmm, nambitten 😏 Aana game kooda Rishi um serndhu unna jeikka vittanga 💜')};
+
+  $('t2').onclick=function(){truth('Hahaha, adhaan unmai! Rishi plan la ellam set 😌')};
+
+  document.querySelectorAll('.wbtn').forEach(function(b){
+
+    b.onclick=function(){
+
+      document.querySelectorAll('.wbtn').forEach(function(x){x.disabled=true});
+
+      b.style.borderColor='var(--gold)';b.style.color='var(--gold)';
+
+      $('planTxt').textContent=name+' · First class: '+b.textContent;
+
+      $('plan').hidden=false;
+
+      setTimeout(function(){$('forever').hidden=false;confetti()},900);
+
+    };
+
+  });
+
+  $('pcont').onclick=function(){
+
+    resetFinale();
+
+    $('fin').textContent='Slot confirmed, '+name+' 🏏';
+
+    show('s4');confetti();initScratch();typeLetter();
+
+  };
+
+  var ltimer;
+
+  function typeLetter(){
+
+    var t=name+',\n\nCricket enakku romba pudikkum. Aana enakku pudicha person kooda play pannumbodhu, andha happiness innum special ah irukkum. So… Rishi kooda cricket play panna varuviya? 🏏\n\nUn kooda time spend panna oru reason podhum. Nee evlo doubts kettaalum, kovam illaama 1000 vaati kooda explain panna ready. Aana apo apo madam konjam sirichaa, en day eh nalla poidum. 💜\n\nIndha application cricket pathi mattum illa — un kooda oru cute memory create panna naan pannina chinna effort. Idha play pannumbodhu nee sirichirundhaa, adhuve enakku periya win.\n\nNee eppadi irundhaalum, nee nee-ah irukkuradhu dhaan special. Thank you for being you.\n\n- Rishi';
+
+    var el=$('letter'),i=0;el.textContent='';clearInterval(ltimer);
+
+    ltimer=setInterval(function(){el.textContent=t.slice(0,++i);if(i>=t.length)clearInterval(ltimer)},45);
+
+  }
+
+
+
+  // Floating hearts
+
+  setInterval(function(){
+
+    if(document.hidden||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+
+    var h=document.createElement('span');h.className='heart';
+
+    h.textContent=['💜','💗','🏏','💜'][Math.floor(Math.random()*4)];
+
+    h.style.left=Math.random()*100+'vw';h.style.fontSize=(14+Math.random()*16)+'px';
+
+    h.style.animationDuration=(7+Math.random()*6)+'s';
+
+    document.body.appendChild(h);setTimeout(function(){h.remove()},14000);
+
+  },1100);
+
+
+
+  // Scratch card
+
+  var sc=$('sc'),sg=sc.getContext('2d'),scratching=false,cleared=false;
+
+  function initScratch(){
+
+    var w=$('scr').clientWidth,h=$('scr').clientHeight;
+
+    sc.width=w;sc.height=h;cleared=false;sc.style.opacity=1;sc.style.pointerEvents='auto';
+
+    var g=sg.createLinearGradient(0,0,w,h);g.addColorStop(0,'#b9bec0');g.addColorStop(.5,'#e8ebec');g.addColorStop(1,'#9ea5a8');
+
+    sg.globalCompositeOperation='source-over';sg.fillStyle=g;sg.fillRect(0,0,w,h);
+
+    sg.fillStyle='#4b3a70';sg.font='700 18px DM Sans, sans-serif';sg.textAlign='center';
+
+    sg.fillText('Scratch here 🏏',w/2,h/2+6);
+
+  }
+
+  function scrub(e){
+
+    if(!scratching||cleared)return;
+
+    var r=sc.getBoundingClientRect();
+
+    sg.globalCompositeOperation='destination-out';
+
+    sg.beginPath();sg.arc(e.clientX-r.left,e.clientY-r.top,22,0,7);sg.fill();
+
+    checkScratch();
+
+  }
+
+  var chk=0;
+
+  function checkScratch(){
+
+    if(++chk%6)return;
+
+    var d=sg.getImageData(0,0,sc.width,sc.height).data,c=0;
+
+    for(var i=3;i<d.length;i+=64)if(d[i]===0)c++;
+
+    if(c/(d.length/64)>.4){cleared=true;sc.style.opacity=0;sc.style.pointerEvents='none';$('finalReveal').hidden=false;confetti()}
+
+  }
+
+  sc.addEventListener('pointerdown',function(e){scratching=true;sc.setPointerCapture(e.pointerId);scrub(e)});
+
+  sc.addEventListener('pointermove',scrub);
+
+  sc.addEventListener('pointerup',function(){scratching=false});
+
+  sc.addEventListener('pointercancel',function(){scratching=false});
+
+
+
+  function reveal(list,done){
+
+    var items=list.querySelectorAll('li'),k=0;
+
+    (function next(){
+
+      if(k<items.length){items[k++].classList.add('on');setTimeout(next,550)}else if(done){done()}
+
+    })();
+
+  }
+
+  function result(){
+
+    $('win').textContent='Congratulations, '+name+'! 🎉';
+
+    document.querySelectorAll('.list li').forEach(function(li){li.classList.remove('on')});
+
+    $('match').hidden=true;$('choice').hidden=true;
+
+    show('s3');confetti();
+
+    setTimeout(function(){
+
+      reveal($('l1'),function(){reveal($('l2'),function(){
+
+        $('match').hidden=false;$('choice').hidden=false;
+
+      })});
+
+    },1200);
+
+  }
+
+
+
+  $('openIntro').onclick=function(){show('s1')};
 
   $('go').onclick=function(){
-    var v=$('nm').value.trim();
-    if(!v){$('nm').focus();$('nm').placeholder='Type your name first 😄„';return}
-    name=v;scan();
-  };
-  $('nm').addEventListener('keydown',function(e){if(e.key==='Enter')$('go').click()});
 
-  // Decline button dodges
-  var no=$('no');
-  function dodge(e){
-    if(e)e.preventDefault();
-    var box=$('choice').getBoundingClientRect();
-    var maxX=Math.max(0,box.width-no.offsetWidth),maxY=60;
-    no.style.position='absolute';
-    no.style.left=Math.random()*maxX+'px';
-    no.style.top=(Math.random()*maxY-10)+'px';
-    no.style.flex='none';no.style.width='110px';
-    no.textContent=['Nope 😜','Try again','Cannot 😂','Hehe'][Math.floor(Math.random()*4)];
-  }
-  no.addEventListener('mouseenter',dodge);
-  no.addEventListener('touchstart',dodge,{passive:false});
-  no.addEventListener('click',dodge);
+    var v=$('nm').value.trim();
 
-  $('yes').onclick=function(){
-    $('fin').textContent='Slot confirmed, '+name+' 🏏';
-    startGame();
-  };
-  $('again').onclick=function(){
-    no.removeAttribute('style');no.textContent='Decline';
-    $('nm').value='';resetFinale();show('s1');
-  };
+    if(!v){$('nm').focus();$('nm').placeholder='Type your name first 😄„';return}
 
-  // Confetti
-  var cv=$('fx'),cx=cv.getContext('2d'),parts=[],raf;
-  function fit(){cv.width=innerWidth;cv.height=innerHeight}
-  addEventListener('resize',fit);fit();
-  function confetti(){
-    if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-    var cols=['#ff5fa8','#e6b7ff','#f7f1ff','#a855f7'];
-    for(var i=0;i<140;i++)parts.push({x:innerWidth/2,y:innerHeight/3,vx:(Math.random()-.5)*14,vy:Math.random()*-12-2,s:4+Math.random()*6,c:cols[i%4],r:Math.random()*6});
-    cancelAnimationFrame(raf);tick();
-  }
-  function tick(){
-    cx.clearRect(0,0,cv.width,cv.height);
-    parts.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.3;p.r+=.2;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore()});
-    parts=parts.filter(function(p){return p.y<innerHeight+20});
-    if(parts.length)raf=requestAnimationFrame(tick);else cx.clearRect(0,0,cv.width,cv.height);
-  }
+    name=v;scan();
+
+  };
+
+  $('nm').addEventListener('keydown',function(e){if(e.key==='Enter')$('go').click()});
+
+
+
+  // Decline button dodges
+
+  var no=$('no');
+
+  function dodge(e){
+
+    if(e)e.preventDefault();
+
+    var box=$('choice').getBoundingClientRect();
+
+    var maxX=Math.max(0,box.width-no.offsetWidth),maxY=60;
+
+    no.style.position='absolute';
+
+    no.style.left=Math.random()*maxX+'px';
+
+    no.style.top=(Math.random()*maxY-10)+'px';
+
+    no.style.flex='none';no.style.width='110px';
+
+    no.textContent=['Nope 😜','Try again','Cannot 😂','Hehe'][Math.floor(Math.random()*4)];
+
+  }
+
+  no.addEventListener('mouseenter',dodge);
+
+  no.addEventListener('touchstart',dodge,{passive:false});
+
+  no.addEventListener('click',dodge);
+
+
+
+  $('yes').onclick=function(){
+
+    $('fin').textContent='Slot confirmed, '+name+' 🏏';
+
+    startGame();
+
+  };
+
+  $('again').onclick=function(){
+
+    no.removeAttribute('style');no.textContent='Decline';
+
+    $('nm').value='';resetFinale();show('s1');
+
+  };
+
+
+
+  // Confetti
+
+  var cv=$('fx'),cx=cv.getContext('2d'),parts=[],raf;
+
+  function fit(){cv.width=innerWidth;cv.height=innerHeight}
+
+  addEventListener('resize',fit);fit();
+
+  function confetti(){
+
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+
+    var cols=['#ff5fa8','#e6b7ff','#f7f1ff','#a855f7'];
+
+    for(var i=0;i<140;i++)parts.push({x:innerWidth/2,y:innerHeight/3,vx:(Math.random()-.5)*14,vy:Math.random()*-12-2,s:4+Math.random()*6,c:cols[i%4],r:Math.random()*6});
+
+    cancelAnimationFrame(raf);tick();
+
+  }
+
+  function tick(){
+
+    cx.clearRect(0,0,cv.width,cv.height);
+
+    parts.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.3;p.r+=.2;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);cx.restore()});
+
+    parts=parts.filter(function(p){return p.y<innerHeight+20});
+
+    if(parts.length)raf=requestAnimationFrame(tick);else cx.clearRect(0,0,cv.width,cv.height);
+
+  }
+
 })();
+
 </script>
+
+
 
 </body></html>
