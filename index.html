@@ -585,50 +585,50 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
   ];
   var shown=0,wrongs=0,tIdx=0,pwDone=false,actx=null;
 
-  function adiyea(){
-    var voiceAudio = new Audio();
-    var voiceQueue = [];
-    var isVoicePlaying = false;
+  
+  var voiceAudio = new Audio();
+  var voiceQueue = [];
+  var isVoicePlaying = false;
 
-    function playVoice(file) {
-      voiceQueue.push(file);
-      playNextVoice();
-    }
-
-    function playNextVoice() {
-      if (isVoicePlaying || voiceQueue.length === 0) return;
-
-      isVoicePlaying = true;
-      voiceAudio.src = voiceQueue.shift();
-      voiceAudio.currentTime = 0;
-
-      voiceAudio.onended = function () {
-        isVoicePlaying = false;
-        playNextVoice();
-      };
-
-      voiceAudio.onerror = function () {
-        isVoicePlaying = false;
-        playNextVoice();
-      };
-
-      voiceAudio.play().catch(function () {
-        isVoicePlaying = false;
-        playNextVoice();
-      });
-    }
-
-    function adiyea() {
-      if (wrongs === 1) {
-        playVoice('Save.m4a');
-      } else if (wrongs === 2) {
-        playVoice('Savee.m4a');
-      } else {
-        playVoice('Saveee.m4a');
-      }
-    }
-
+  function playVoice(file) {
+    voiceQueue.push(file);
+    playNextVoice();
   }
+
+  function playNextVoice() {
+    if (isVoicePlaying || voiceQueue.length === 0) return;
+
+    isVoicePlaying = true;
+    voiceAudio.src = voiceQueue.shift();
+
+    voiceAudio.onended = function () {
+      isVoicePlaying = false;
+      playNextVoice();
+    };
+
+    voiceAudio.onerror = function () {
+      isVoicePlaying = false;
+      console.error('Audio failed:', voiceAudio.src);
+      playNextVoice();
+    };
+
+    voiceAudio.play().catch(function (error) {
+      isVoicePlaying = false;
+      console.error('Audio playback failed:', error);
+      playNextVoice();
+    });
+  }
+
+  function adiyea() {
+    if (wrongs === 1) {
+      playVoice('Save.m4a');
+    } else if (wrongs === 2) {
+      playVoice('Savee.m4a');
+    } else {
+      playVoice('Saveee.m4a');
+    }
+  }
+
   function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
 
   function startPassword(){
