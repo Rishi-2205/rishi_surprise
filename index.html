@@ -586,23 +586,48 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
   var shown=0,wrongs=0,tIdx=0,pwDone=false,actx=null;
 
   function adiyea(){
-    try{
-      actx=actx||new (window.AudioContext||window.webkitAudioContext)();
-      var o=actx.createOscillator(),g=actx.createGain();
-      o.type='triangle';o.frequency.setValueAtTime(420,actx.currentTime);
-      o.frequency.exponentialRampToValueAtTime(190,actx.currentTime+.3);
-      g.gain.setValueAtTime(.15,actx.currentTime);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+.35);
-      o.connect(g);g.connect(actx.destination);o.start();o.stop(actx.currentTime+.36);
-    }catch(e){}
-    try{
-      if(window.speechSynthesis){
-        var ta=speechSynthesis.getVoices().filter(function(v){return /^ta/i.test(v.lang)})[0];
-        var u=new SpeechSynthesisUtterance(ta?'அடியே':'Adiyea');
-        if(ta){u.voice=ta;u.lang='ta-IN'}else{u.lang='en-IN'}
-        u.rate=.85;u.pitch=1.4;
-        speechSynthesis.cancel();speechSynthesis.speak(u);
+    var voiceAudio = new Audio();
+    var voiceQueue = [];
+    var isVoicePlaying = false;
+
+    function playVoice(file) {
+      voiceQueue.push(file);
+      playNextVoice();
+    }
+
+    function playNextVoice() {
+      if (isVoicePlaying || voiceQueue.length === 0) return;
+
+      isVoicePlaying = true;
+      voiceAudio.src = voiceQueue.shift();
+      voiceAudio.currentTime = 0;
+
+      voiceAudio.onended = function () {
+        isVoicePlaying = false;
+        playNextVoice();
+      };
+
+      voiceAudio.onerror = function () {
+        isVoicePlaying = false;
+        playNextVoice();
+      };
+
+      voiceAudio.play().catch(function () {
+        isVoicePlaying = false;
+        playNextVoice();
+      });
+    }
+
+    function adiyea() {
+      if (wrongs === 1) {
+        playVoice('Save.m4a');
+      } else if (wrongs === 2) {
+        playVoice('Savee.m4a');
+      } else {
+        playVoice('Saveee.m4a');
       }
-    }catch(e){}
+    }
+
   }
   function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
 
@@ -629,6 +654,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
     var v=$('pw').value.toLowerCase().replace(/\s+/g,'');
     if(v===PASS.toLowerCase()){
       pwDone=true;$('pw').disabled=true;
+      playVoice('Saveee.m4a');
       $('lock').textContent='💜';$('lock').className='open';
       $('ph').textContent='Heart unlocked!';$('pmsg').textContent='';
       $('pbtns').hidden=true;$('task').hidden=true;$('pnext').hidden=false;confetti();
@@ -654,7 +680,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
             $('tmsg').textContent='Jersey ready! 🎉';$('pwtxt').textContent=PASS;$('pwshow').hidden=false;confetti();
           }
         }else{
-          adiyea();shake(b);$('tmsg').textContent='Adiyea! 😤 Order thappu, clue paaru.';
+          playVoice('Save.m4a');shake(b);$('tmsg').textContent='Adiyea! 😤 Order thappu, clue paaru.';
         }
       };
       box.appendChild(b);
