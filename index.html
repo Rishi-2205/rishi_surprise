@@ -693,12 +693,18 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
   }
 
   function adiyea() {
-    if (wrongs === 1) {
-      playVoice('Save.m4a');
-    } else if (wrongs === 2) {
-      playVoice('Savee.m4a');
-    } 
-  }
+    var audioFiles = ['Save.m4a', 'Savee.m4a', 'Saveeee.m4a'];
+    var audioFile = audioFiles[(wrongs - 1) % audioFiles.length];
+
+    voiceAudio.pause();
+    voiceAudio.currentTime = 0;
+    voiceAudio.src = audioFile;
+    voiceAudio.load();
+
+    voiceAudio.play().catch(function (error) {
+      console.error('Audio playback failed:', error);
+    });
+ } 
 
   function shake(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}
 
@@ -751,7 +757,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
             $('tmsg').textContent='Jersey ready! 🎉';$('pwtxt').textContent=PASS;$('pwshow').hidden=false;confetti();
           }
         }else{
-          playVoice('Save.m4a');shake(b);$('tmsg').textContent='Adiyea! 😤 Order thappu, clue paaru.';
+          playVoice('Saveeee.m4a');shake(b);$('tmsg').textContent='Adiyea! 😤 Order thappu, clue paaru.';
         }
       };
       box.appendChild(b);
