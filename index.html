@@ -1,4 +1,52 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
+/* New memories and love-note additions */
+.memory-section{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+.memory-hero{padding:20px 16px;border-radius:16px;background:linear-gradient(145deg,#4b247d,#241246);border:1px solid var(--gold);text-align:center}
+.memory-date{font-family:var(--display);font-size:13px;letter-spacing:.16em;color:var(--gold);font-weight:800}
+.memory-hero h2{font-size:clamp(25px,7vw,32px);margin:8px 0}
+.memory-hero p{color:var(--fg);margin-top:8px}
+.memory-quote{font-family:var(--display);font-size:21px;color:var(--gold);line-height:1.35;margin:12px 0}
+.memory-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.memory-photo{min-height:150px;border-radius:14px;overflow:hidden;background:var(--pitch);border:1px solid var(--line);position:relative;display:grid;place-items:center;text-align:center;color:var(--muted)}
+.memory-photo img{width:100%;height:100%;min-height:150px;object-fit:cover;display:block}
+.memory-photo span{padding:12px}
+.memory-photo figcaption{position:absolute;bottom:0;left:0;right:0;padding:7px;background:linear-gradient(transparent,rgba(0,0,0,.8));color:white;font-size:12px;text-align:left}
+.memory-upload{font-size:14px;color:var(--muted)}
+.memory-upload input{font-size:14px;padding:10px}
+.love-note{border:1px solid var(--line);border-radius:14px;background:var(--pitch);overflow:hidden}
+.love-note button{width:100%;text-align:left;border-radius:0;background:transparent;color:var(--gold);font-size:16px;padding:15px}
+.love-note p{display:none;padding:0 15px 16px;color:var(--fg)}
+.love-note.open p{display:block}
+.future-question{padding:15px;border-radius:14px;background:var(--pitch);border:1px solid var(--line);display:flex;flex-direction:column;gap:9px}
+.future-question b{color:var(--gold)}
+.future-question button{font-size:14px;padding:10px}
+.future-answer{color:var(--fg);min-height:1.3em}
+.gallery-add{display:block;width:100%;padding:14px 16px;border:1.5px dashed var(--gold);border-radius:13px;text-align:center;color:var(--gold);font-weight:700;background:rgba(230,183,255,.07);cursor:pointer}
+#memoryUpload{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.gallery-hint{font-size:12px;color:var(--muted);text-align:center}
+.sealed-surprise{padding:18px 16px;border:1px solid var(--gold);border-radius:16px;background:linear-gradient(150deg,#32195b,#1c0f3a);text-align:center;display:flex;flex-direction:column;gap:12px}
+.sealed-surprise p{color:var(--fg)}
+.promise-reveal{padding:14px;border-radius:12px;background:rgba(255,255,255,.05);text-align:left;display:flex;flex-direction:column;gap:10px;animation:in .5s ease both}
+.promise-reveal b{color:var(--gold)}
+.love-heart-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.heart-question-card{padding:16px;border:1px solid var(--gold);border-radius:16px;background:linear-gradient(145deg,#32195b,#1c0f3a);display:flex;flex-direction:column;gap:12px;animation:in .35s ease both}
+.heart-question-card h2{font-size:23px}
+.heart-finale{padding:22px 16px;border:1px solid var(--gold);border-radius:18px;background:radial-gradient(circle at top,#693b91,#241246 72%);text-align:center;display:flex;flex-direction:column;gap:14px;animation:in .7s ease both}
+.heart-finale p{color:var(--fg)}
+.love-heart-tile:disabled{opacity:1;cursor:default}
+
+.love-heart-tile{min-height:68px;padding:8px;background:var(--pitch);border:1px solid var(--line);border-radius:14px;font-size:30px;display:grid;place-items:center}
+.love-heart-tile.found{background:linear-gradient(145deg,#552c91,#32195b);border-color:var(--ball);opacity:.8;transform:scale(.96)}
+.love-quiz-progress{font-size:13px;color:var(--gold);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.love-quiz-question{font-size:24px}
+.love-quiz-options{display:flex;flex-direction:column;gap:10px}
+.love-quiz-options button{background:var(--pitch);color:var(--fg);border:1px solid var(--line);text-align:left;font-size:15px}
+.love-quiz-options button.selected{border-color:var(--gold);background:#3a1d70}
+.love-quiz-result{padding:18px 14px;border-radius:15px;background:linear-gradient(145deg,#4b247d,#241246);border:1px solid var(--gold);text-align:center;display:flex;flex-direction:column;gap:10px}
+.love-quiz-result p{color:var(--fg)}
+@media(max-width:360px){.memory-grid{grid-template-columns:1fr}}
+
+</style></head><body>
 <title>Cricket Slot Application</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap">
@@ -145,6 +193,25 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
     <p style="font-size:13px">Made with 💜 by Rishi</p>
   </section>
 
+  <section class="stage" id="firstClassReview" hidden>
+    <div class="welcome-mark" aria-hidden="true">🏏💗</div>
+    <span class="tag">A little feedback from you</span>
+    <h1>How was our first class? 🥹</h1>
+    <p>First class already happened, so before we start this little surprise, I want to know how you felt. Your review matters more than any score. ❤️</p>
+    <div class="sec">Give our first class a rating</div>
+    <div class="stars" id="firstClassStars" aria-label="Rate the first class"></div>
+    <p class="fb" id="firstClassRatingFeedback">Tap the stars, madam. No pressure… but coach is watching 😌</p>
+    <div class="sec">What was your favourite part?</div>
+    <div class="love-quiz-options" id="firstClassReviewOptions">
+      <button type="button" class="ghost">The fun and laughter 😂</button>
+      <button type="button" class="ghost">Spending time together 💜</button>
+      <button type="button" class="ghost">Coach Rishi's special attention 🤭</button>
+      <button type="button" class="ghost">Everything… obviously 😌</button>
+    </div>
+    <p class="fb" id="firstClassReviewFeedback"></p>
+    <button id="firstClassReviewContinue" type="button" disabled>Continue to your surprise 💌</button>
+  </section>
+
   <section class="stage" id="s1" hidden>
     <div class="row"><div class="ball" aria-hidden="true"></div><span class="tag">Cricket Coaching Application<br>Only 1 slot open</span></div>
     <h1>Zero cricket knowledge? Perfect.</h1>
@@ -178,6 +245,15 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
     <p>Inime eppadi choose panna poringa? 😂 Ippo dhaan real interview start aagudhu. Ready ah, Preethi Joe?</p>
     <p class="note">Wrong answer choose panna button thappichu odum… so yosichu answer pannu 🤭</p>
     <div class="btns"><button id="startHardInterview" type="button">Bring it on! 😎</button></div>
+  </section>
+
+  <section class="stage" id="thirdIntro" hidden>
+    <div class="welcome-mark" aria-hidden="true">💗✨</div>
+    <span class="tag">Interview round 3 · From my heart</span>
+    <h2>Last round… konjam heart-to-heart pesalama? 🥹</h2>
+    <p>First two rounds were for fun. This one is about us — our little moments, the things we dream about, and how we can make each other feel loved.</p>
+    <p class="note">Correct answer nu edhuvum illa, Preethi. Unmaiya un heart-la irundhu choose pannu. ❤️</p>
+    <div class="btns"><button id="startThirdInterview" type="button">Open the heart-to-heart 💌</button></div>
   </section>
 
   <section class="stage" id="s3" hidden>
@@ -239,6 +315,47 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
     <div class="btns" id="mnext" hidden><button id="mcont" type="button">Continue →’</button></div>
   </section>
 
+  <section class="stage" id="loveTap" hidden>
+    <span class="tag">A tiny love game · Level 1</span>
+    <div class="welcome-mark" aria-hidden="true">💗✨</div>
+    <h2>Collect little pieces of my heart</h2>
+    <p>Tap each heart and answer its little question. Every heart holds one cute thought about us. 🥹</p>
+    <div class="stats"><span>Little moments opened: <span id="loveTapCount">0</span>/8</span><span>💗</span></div>
+    <div class="love-heart-grid" id="loveHeartGrid"></div>
+    <div class="heart-question-card" id="heartQuestionCard" hidden>
+      <span class="tag" id="heartQuestionCount">Little moment 1 of 8</span>
+      <h2 id="heartQuestionText"></h2>
+      <div class="love-quiz-options" id="heartQuestionOptions"></div>
+      <p class="fb" id="loveTapFeedback"></p>
+      <button id="heartQuestionNext" type="button" hidden>Open the next heart 💗</button>
+    </div>
+    <div class="heart-finale" id="heartFinale" hidden>
+      <div class="welcome-mark">💞</div>
+      <div class="tag">A little thing from my heart</div>
+      <h2>Out of all the little moments, you're my favourite. ❤️</h2>
+      <p>October 30 gave me a memory I will carry for a long time. But I don't want our story to be only about one day. I want more silly laughs, honest conversations, little adventures, and quiet moments where we simply feel happy to have each other.</p>
+      <p><b>Preethi, naan un kooda perfect life promise panna mudiyadhu. Aana un kooda irukkura ovvoru naalum care, respect, honesty oda beautiful-ah make panna try pannuven. 💜</b></p>
+      <button id="loveTapContinue" type="button">One more little surprise 💌</button>
+    </div>
+  </section>
+
+  <section class="stage" id="loveQuiz" hidden>
+    <span class="tag">A tiny love game · Level 2</span>
+    <div class="welcome-mark" aria-hidden="true">🫶</div>
+    <h2>How well do you know our little world?</h2>
+    <p>Choose an answer for each question. There are no wrong answers here — just sweet memories. ❤️</p>
+    <div class="love-quiz-progress" id="loveQuizProgress">Question 1 of 4</div>
+    <h2 class="love-quiz-question" id="loveQuizQuestion"></h2>
+    <div class="love-quiz-options" id="loveQuizOptions"></div>
+    <p class="fb" id="loveQuizFeedback"></p>
+    <div class="btns" id="loveQuizNext" hidden><button id="loveQuizContinue" type="button">Finish our little games 💜</button></div>
+    <div class="love-quiz-result" id="loveQuizResult" hidden>
+      <div class="welcome-mark">💞</div>
+      <h2>My favourite answer is still you.</h2>
+      <p>Indha game-la score mukkiyam illa. Un kooda create panra memories dhaan enakku special. Thank you for being part of my days, Preethi. ❤️</p>
+    </div>
+  </section>
+
   <section class="stage" id="srt" hidden>
     <span class="tag">Feedback form</span>
     <h2>Rate your coach ⭐</h2>
@@ -290,7 +407,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
     <span class="tag">Application accepted</span>
     <h2 id="fin"></h2>
     <p class="note">Application link ketila, so inthu than antha link uh... Naan open pannadhu un oru slot ku dhaan, vera yaarukum illa.</p>
-    <p>First class is whenever you say. Bring zero cricket knowledge. Rishi brings the bat, the ball, and a lollipop. And you still get a "Heyyyy" 😉</p>
+    <p>Our second class is whenever you say. Bring zero cricket knowledge. Rishi brings the bat, the ball, and a lollipop. And you still get a "Heyyyy" 😉</p>
     <div class="sec">Rishi's letter for you 💜</div>
     <div class="letter" id="letter"></div>
     <div class="promise">
@@ -298,6 +415,64 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
       <p>Apram oru thing, unkuda naan yeppovume irupen, nee <b>"poo"</b> nu soldra varaikum.</p>
       <p>Mainly, cricket mattum illa. Unnaku Tamil solli kudukkudukurano illayo,But, unnoda serndhu naanum Kolar ah <b>Thanglish</b> pesalaam neeyum naanam, life long 💜</p>
     </div>
+
+    <div class="memory-section" id="ourMemories">
+      <div class="sec">A little corner of our story 💗</div>
+      <p>Not just photos. These are the little moments I want to keep close.</p>
+      <div class="memory-hero">
+        <div class="memory-date">OCTOBER 30 · A DAY I WILL NEVER FORGET</div>
+        <div class="welcome-mark">💋</div>
+        <h2>Our first kiss</h2>
+        <p>That moment is going to stay with me for a very, very long time. After that, when you said…</p>
+        <div class="memory-quote">“Enakku unna romba pudikkum.”</div>
+        <p>I don't think you know how deeply those words touched me. I wanted to pause that moment and keep it forever. ❤️</p>
+      </div>
+
+      <div class="sec">A little album of us 📸</div>
+      <p class="memory-upload">Every picture has a little story. Add the moments that make you smile — this corner is just for our memories. 💗</p>
+      <label class="memory-upload gallery-add" for="memoryUpload">＋ Add a favourite photo</label>
+      <input id="memoryUpload" type="file" accept="image/*" multiple>
+      <p class="gallery-hint">Your selected photos are shown on this device while this page is open. You can add them again whenever you visit. ❤️</p>
+      <div class="memory-grid" id="memoryGallery">
+        <div class="memory-photo"><span>💜<br>Our first favourite memory</span></div>
+        <div class="memory-photo"><span>🌷<br>A smile I want to remember</span></div>
+      </div>
+
+      <div class="sec">Things I wish I could tell you every day 💌</div>
+      <div class="promise">
+        <p>Before you came into my life, sometimes I felt like I was just going through the days without knowing what I was moving towards. I had things around me, but I didn't always feel that sense of purpose.</p>
+        <p>After you came into my life, I don't know whether I found a complete purpose, but I started feeling responsibilities too — the responsibility to grow, to care, to understand, and to become a better person.</p>
+        <p>I don't know exactly what our future will look like. Nobody can promise that every day will be perfect. But as long as I am in your life, I want to make an honest effort to keep you happy, respect you, listen to you, and stand beside you.</p>
+        <p>And that October 30 moment? It will always have a special place in my heart. Thank you for making it unforgettable. ❤️</p>
+        <p><b>Un life-la naan irukkura varaikum, unna happy-ah vachikka ennaala mudinja ellam try pannuven. 💜</b></p>
+      </div>
+
+      <div class="sec">Open these little notes 🥹</div>
+      <div class="love-note"><button type="button">💌 Note 1 · When you smile</button><p>Un sirippu paatha enakku automatically smile vandhudum. Sometimes, that's enough to make a difficult day feel lighter.</p></div>
+      <div class="love-note"><button type="button">🌙 Note 2 · On difficult days</button><p>Unakku ellam okay nu nadikka thevai illa. Happy-ah irundhaalum, sad-ah irundhaalum, pesanum-na naan kekka ready. Un feelings important.</p></div>
+      <div class="love-note"><button type="button">🫶 Note 3 · About us</button><p>Perfect couple-ah irukkanum nu illa. Rendu perum purinjukittu, mistakes irundhaa pesi sari pannittu, konjam konjam-ah grow aana podhum.</p></div>
+      <div class="love-note"><button type="button">💜 Note 4 · One promise</button><p>Future eppadi irukkum nu theriyadhu. Aana naan irukkura varaikum, un happiness, comfort, and dreams-ku value kudukka try pannuvaen.</p></div>
+
+      <div class="sec">A few questions for you 🌷</div>
+      <div class="future-question"><b>1. October 30-la unakku most memorable moment edhu?</b><button type="button" class="ghost future-reveal">Open Rishi's thought</button><p class="future-answer" hidden>Enakku andha first kiss-um, adhukku apram nee sonna andha words-um. Rendu perum en memory-la special. ❤️</p></div>
+      <div class="future-question"><b>2. Namma rendu perum serndhu create panna vendiya next memory enna?</b><button type="button" class="ghost future-reveal">Open Rishi's thought</button><p class="future-answer" hidden>Oru simple day kooda podhum — konjam walk, neraya pesuradhu, sirikkuradhu, and no hurry. 💗</p></div>
+      <div class="future-question"><b>3. Un future dream-la naan eppadi support panna?</b><button type="button" class="ghost future-reveal">Open Rishi's thought</button><p class="future-answer" hidden>Un dreams unnudaiyadhu. Naan unakku support-ah irukkanum; unakku badhila decide panna illa. Nee grow aaguradha paakanum. 💜</p></div>
+      <div class="future-question"><b>4. Namma private little tradition enna irukkanum?</b><button type="button" class="ghost future-reveal">Open Rishi's thought</button><p class="future-answer" hidden>Oru daily “Heyyyy”, oru genuine smile, and at least one small moment to ask, “Innaiku epdi irundhuchu?” 🥹</p></div>
+    </div>
+
+    <div class="sealed-surprise">
+      <div class="welcome-mark" aria-hidden="true">💌</div>
+      <div class="sec">A tiny promise, sealed just for you</div>
+      <p>There is one more thing I want you to keep close.</p>
+      <button id="openPromise" type="button" class="ghost">Open your little promise 💗</button>
+      <div id="promiseReveal" class="promise-reveal" hidden>
+        <p>Preethi, I can't tell you exactly what every tomorrow will look like. But I can choose how I treat you today: with patience, honesty, respect, laughter, and care.</p>
+        <p>I want to celebrate your wins, listen on your difficult days, support your dreams, and keep making ordinary moments feel special.</p>
+        <p><b>Unna happy-ah paakanum nu aasai mattum illa — adhukku daily effort edukka naan ready. ❤️</b></p>
+        <p>And whenever life feels heavy, let's remember: we are on the same team. Always. 🫶</p>
+      </div>
+    </div>
+
     <div class="sec">One more surprise. Scratch here 👇</div>
     <div class="scratch" id="scr">
       <div class="prize">
@@ -323,7 +498,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
     </div>
     <p class="fb" id="tfb"></p>
     <div id="when" class="when" hidden>
-      <div class="sec">First class eppo? 🏏</div>
+      <div class="sec">Second class eppo? 🏏</div>
       <div class="btns" id="wb">
         <button type="button" class="ghost wbtn">This weekend</button>
         <button type="button" class="ghost wbtn">Evening</button>
@@ -332,7 +507,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
       </div>
     </div>
     <div class="promise" id="plan" hidden>
-      <span class="tag">Class booked</span>
+      <span class="tag">Second class booked</span>
       <p id="planTxt"></p>
       <p>Screenshot eduthu Rishi ku anuppu 📸¸</p>
     </div>
@@ -348,9 +523,41 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
 (function(){
   var $=function(id){return document.getElementById(id)};
   var name='';
-  function show(id){['welcome','s1','s2','sq','hardIntro','s3','sg','sg2','sm','srt','sr','sp','s4'].forEach(function(s){$(s).hidden=s!==id});window.scrollTo(0,0)}
+  function show(id){['welcome','firstClassReview','s1','s2','sq','hardIntro','thirdIntro','s3','sg','sg2','sm','loveTap','loveQuiz','srt','sr','sp','s4'].forEach(function(s){$(s).hidden=s!==id});window.scrollTo(0,0)}
 
-  $('openWelcome').onclick=function(){show('s1')};
+  $('openWelcome').onclick=function(){show('firstClassReview')};
+
+  // First class has already happened: collect her review before the application surprise.
+  (function(){
+    var rating=0, favourite='';
+    var stars=$('firstClassStars');
+    for(var i=1;i<=5;i++){
+      (function(n){
+        var star=document.createElement('button');star.type='button';star.className='star';star.textContent='★';
+        star.setAttribute('aria-label',n+' stars');
+        star.onclick=function(){
+          rating=n;
+          Array.from(stars.querySelectorAll('button')).forEach(function(x,index){x.classList.toggle('on',index<n)});
+          $('firstClassRatingFeedback').textContent=n===5?'5 stars! First class-ku full marks from madam! 🥹':
+            n>=4?'Awww, coach is happy! I will try to make the next class even sweeter. 💗':
+            'Honest review accepted. Next class-la better performance kaamikiren! 😌';
+          updateReviewContinue();
+        };
+        stars.appendChild(star);
+      })(i);
+    }
+    $('firstClassReviewOptions').querySelectorAll('button').forEach(function(button){
+      button.onclick=function(){
+        favourite=button.textContent;
+        $('firstClassReviewOptions').querySelectorAll('button').forEach(function(other){other.classList.toggle('selected',other===button)});
+        $('firstClassReviewFeedback').textContent='Athu dhaan un favourite ah? Coach remembers! 🤭💜';
+        updateReviewContinue();
+      };
+    });
+    function updateReviewContinue(){$('firstClassReviewContinue').disabled=!(rating&&favourite)}
+    $('firstClassReviewContinue').onclick=function(){show('s1')};
+  })();
+
 
   var msgs=[
     'Checking 8,00,00,000 applicants…',
@@ -437,7 +644,36 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
       ['Free lollipop mattum 🍭',0],
       ['Enakku cricket contract venum, bye 😎',0]]}
   ]);
+  var secondRoundEnd=Q.length;
+  Q=Q.concat([
+    {q:'October 30 namma rendu perukkum yen special?',o:[
+      ['Andha first kiss-um, nee sonna words-um enakku marakka mudiyadha memory ❤️','Enakkum adhu life-la romba precious moment. Thank you for making it ours.',1],
+      ['Adhu oru normal day illa; namma story-la special page 🥹','Exactly. Andha page-ah naan eppovume close panna maaten.',1],
+      ['Date mattum dhaan mukkiyam, moment illa',0],
+      ['Enakku nyabagam illa 😜',0]]},
+    {q:'Unakku oru difficult day irundhaa, Rishi enna panna nalla irukkum?',o:[
+      ['Advice kudukkuradhukku munnaadi, enna nadandhuchu nu ketkanum 💗','I promise to listen first. Un feelings-ku space irukkanum.',1],
+      ['En kooda konjam quiet-ah irundhu support pannanum 🫶','Sometimes presence itself is comfort. Naan adhai purinjukka try pannuven.',1],
+      ['En feelings-ah joke pannanum',0],
+      ['Enna vidaama questions kekkanum',0]]},
+    {q:'Namma future pathi yosikkumbodhu unakku enna mukkiyam?',o:[
+      ['Rendu perum namma dreams-ah support pannikanum 🌷','Un dreams unnudaiyadhu; adha respect panni support panradhu enakku mukkiyam.',1],
+      ['Honest-ah pesi, problems vandhaa team-ah face pannanum ❤️','Perfect-ah irukkanum nu illa. Same team-ah irundhaa podhum.',1],
+      ['Yaarum yaaraiyum purinjukka thevai illa',0],
+      ['Future pathi pesa koodaadhu',0]]},
+    {q:'Rishi life-la vandhadhukku apram nee enna feel panra?',o:[
+      ['Naan enna madhiri irukkeno appadiye accepted-ah feel panren 🥹','I want you to feel safe being exactly yourself with me.',1],
+      ['Namma rendu perum innum nalla understand pannikanum 💜','Yes. Love-na daily learn pannradhu, listen pannradhu, grow aaguradhu.',1],
+      ['Nee ellathayum guess pannanum',0],
+      ['Pesama irundhaa podhum',0]]},
+    {q:'Last question… Rishi unakku oru promise panna, adhu enna irukkanum?',o:[
+      ['Enna respect panni, en happiness-um dreams-um care pannanum ❤️','Adhu dhaan. Unna love panradhu na un individuality-yum dreams-yum respect panradhu.',1],
+      ['Happy days mattum illa, tough days-layum pakkathula irukkanum 🫂','Naan perfect-ah irukka maaten, aana un kooda honest-ah effort edukka virumburen.',1],
+      ['Never make any mistakes',0],
+      ['Always agree with everything',0]]}
+  ]);
   $('startHardInterview').onclick=function(){show('sq');ask()};
+  $('startThirdInterview').onclick=function(){show('sq');ask()};
   var qi=0,locked=false;
   var wail=['Hehe, pudikka mudiyala 😜','Hey reduuu😂','Try again 🤭','Enna diiii ithu 😂','Athu un answer illa 😌','Oduren oduren 🏃'];
   function startQuiz(){
@@ -446,7 +682,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
   function ask(){
     locked=false;
     var d=Q[qi];
-    $('qn').textContent=(qi<firstRoundCount?'Interview round 1':'Interview round 2')+' · Question '+(qi+1)+' of '+Q.length;
+    $('qn').textContent=(qi<firstRoundCount?'Interview round 1':qi<secondRoundEnd?'Interview round 2':'Interview round 3')+' · Question '+(qi+1)+' of '+Q.length;
     $('qfill').style.width=(qi/Q.length*100)+'%';
     $('qt').textContent=(qi%2===0?name+', ':'')+d.q;$('qfb').textContent='';
     var box=$('opts');box.innerHTML='';
@@ -460,6 +696,8 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
           qi++;
           if(qi<firstRoundCount){ask()}
           else if(qi===firstRoundCount){show('hardIntro')}
+          else if(qi<secondRoundEnd){ask()}
+          else if(qi===secondRoundEnd){show('thirdIntro')}
           else if(qi<Q.length){ask()}
           else{$('qfill').style.width='100%';result()}
         },1300);
@@ -593,7 +831,128 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
       g.appendChild(b);
     });
   }
-  $('mcont').onclick=function(){startRating()};
+  $('mcont').onclick=function(){startLoveTap()};
+
+  // Love game 1: eight hearts, eight personal heart-to-heart questions.
+  var heartQuestions=[
+    {q:'Naan unakku mattum use panna oru kutty nickname vechaa, nee enna maadhiri nickname choose pannuva?',o:['Kutty maadhiri romba cute-ah 🧸','Unna sirikka vaikkura funny-ah 😂','Secret-ah romantic-ah 🤫'],reply:'Appo andha nickname enakku mattum reserved! Unna smile panna vaikka adha use pannuvaen. 💗'},
+    {q:'Namma rendu perukkum oru chinna snack date. Aana ore oru item dhaan order panna mudiyum. Nee edha choose pannuva?',o:['Lollipop and Kurkure 🍭','Rendu perukkum ice cream 🍦','Share panni saapida spicy-ah edhaavadhu 🌶️'],reply:'Deal! Aana un side-la irundhu oru bite naan kandippa kekka poren. Sharing compulsory! 🤭'},
+    {q:'Namma rendu perum sudden-ah mazhaila maattikittom-na, nee enna pannuva?',o:['Mazhaiyila dance aaduvom ☔','Odi poi oru chinna tea kadai-la nippom ☕','Pakkathula ninnu andha moment-ah enjoy pannuvom 🫶'],reply:'Enna nadandhaalum, andha mazhai namma favourite memory-ah maarura alavukku sirikkanum. 🌧️💜'},
+    {q:'Namma couple-ku oru superpower choose pannu!',o:['Oru paarvai-la ye orutharukku oruthar purinjukanum 👀','Oru second-la oruthara oruthar sirikka vaikka mudiyanum 😂','Evlo crowd irundhaalum oruthara oruthar kandupidikkanum 💞'],reply:'Enakku moonume venum! Konjam over-ah irundhaalum namma team-ku special powers venum! 😌'},
+    {q:'Naan unakku theriyama oru kutty surprise plan panna, edhu unna romba happy-aakkum?',o:['Kaiyaala ezhudhina oru chinna note 💌','Un favourite snack ready-ah irukkuradhu 🍫','Sudden-ah oru mini outing 🌷'],reply:'Seri, idha en imaginary surprise notebook-la note pannitaen. Oru naal un happy smile-ah nerla paakkanum. 🥹'},
+    {q:'Namma rendu perum serndhu endha silly challenge try pannalaam?',o:['Oru mani neram funny Thanglish-la mattum pesuradhu 🤭','Romba funny selfie face podradhu 📸','Oruthara oruthar paathu sirikkaama irukka try pannuradhu 😂'],reply:'Sirikka koodaadhu challenge first-e fail aagum-nu enakku theriyum. Unna oru vaati paarthaale game over! ❤️'},
+    {q:'Namma rendu perukkum mattum oru kutty kingdom irundhaa, adhula enna rule irukkanum?',o:['Dinner-ku munnaadi dessert saapdalaam 🍰','Good night sollaama yaarum thoonga koodaadhu 🌙','Yaaru first sirikkiraangalo avanga dhaan winner 👑'],reply:'Your Majesty, unga rule enakku okay! Aana unna daily sirikka vaikka enakku permission venum. 👑'},
+    {q:'Namma next memory-ku oru cute photo moment choose pannu.',o:['Matching outfit pottu photo edukkuradhu 👟','Romba mokka pose pottu funny photo edukkuradhu 📷','Ready-ah illaadha time-la natural-ah smile varra candid photo 🥰'],reply:'Namma real-ah, plan pannaama edukura photos-um enakku romba pidikkum — especially nee sudden-ah sirikkura photos. 💞'}
+  ];
+  var heartIndex=0,heartAnswered=false;
+  function startLoveTap(){
+    show('loveTap');heartIndex=0;heartAnswered=false;
+    $('loveTapCount').textContent='0';$('heartQuestionCard').hidden=true;$('heartFinale').hidden=true;
+    $('loveHeartGrid').hidden=false;
+    var box=$('loveHeartGrid');box.innerHTML='';
+    var symbols=['💗','💖','💘','💝','💕','❤️','💓','💞'];
+    symbols.forEach(function(symbol,index){
+      var b=document.createElement('button');b.type='button';b.className='love-heart-tile';b.textContent=symbol;
+      b.setAttribute('aria-label','Open little question '+(index+1));
+      b.onclick=function(){
+        if(index!==heartIndex||b.disabled)return;
+        b.disabled=true;b.classList.add('found');b.textContent='💌';
+        $('loveTapCount').textContent=String(heartIndex+1);
+        renderHeartQuestion();
+      };
+      box.appendChild(b);
+    });
+  }
+  function renderHeartQuestion(){
+    var item=heartQuestions[heartIndex];heartAnswered=false;
+    $('heartQuestionCard').hidden=false;
+    $('heartQuestionCount').textContent='Little moment '+(heartIndex+1)+' of 8';
+    $('heartQuestionText').textContent=item.q;
+    $('loveTapFeedback').textContent='';
+    $('heartQuestionNext').hidden=true;
+    $('heartQuestionNext').textContent=heartIndex===7?'Open my little letter 💌':'Open the next heart 💗';
+    var opts=$('heartQuestionOptions');opts.innerHTML='';
+    item.o.forEach(function(option){
+      var b=document.createElement('button');b.type='button';b.textContent=option;
+      b.onclick=function(){
+        if(heartAnswered)return;heartAnswered=true;b.classList.add('selected');
+        Array.from(opts.querySelectorAll('button')).forEach(function(x){x.disabled=true});
+        $('loveTapFeedback').textContent=item.reply;
+        $('heartQuestionNext').hidden=false;
+      };
+      opts.appendChild(b);
+    });
+  }
+  $('heartQuestionNext').onclick=function(){
+    heartIndex++;
+    if(heartIndex<heartQuestions.length){
+      $('heartQuestionCard').hidden=true;
+      $('loveHeartGrid').querySelectorAll('button')[heartIndex].click();
+    }else{
+      $('heartQuestionCard').hidden=true;$('loveHeartGrid').hidden=true;
+      $('heartFinale').hidden=false;confetti();
+    }
+  };
+  $('loveTapContinue').onclick=function(){startLoveQuiz()};
+
+  // Love game 2: a gentle memory-and-feelings quiz.
+  var loveQuestions=[
+    {q:'Which date holds our first-kiss memory?',o:['October 30 💋','A random Monday','Every single day'],a:0,reply:'That date is special because it belongs to a moment we shared. ❤️'},
+    {q:'What did you say after that unforgettable moment?',o:['Enakku unna romba pudikkum 🥹','Let us play cricket','Where is my lollipop? 😂'],a:0,reply:'Those words are still playing softly in my mind. I will not forget them. 💗'},
+    {q:'What should we do when one of us has a difficult day?',o:['Listen and understand each other 🫶','Ignore everything','Expect the other person to guess'],a:0,reply:'We do not need to solve everything immediately. Sometimes listening is love. 💜'},
+    {q:'What do I want us to keep choosing?',o:['Respect, honesty and effort ❤️','Only perfect days','Never talking about feelings'],a:0,reply:'Not a perfect story — a real one, where we keep caring and growing together. 🌷'}
+  ];
+  var loveQi=0;
+  function startLoveQuiz(){
+    show('loveQuiz');loveQi=0;
+    $('loveQuizResult').hidden=true;$('loveQuizNext').hidden=true;
+    renderLoveQuestion();
+  }
+  function renderLoveQuestion(){
+    var item=loveQuestions[loveQi];
+    $('loveQuizProgress').textContent='Question '+(loveQi+1)+' of '+loveQuestions.length;
+    $('loveQuizQuestion').textContent=item.q;
+    $('loveQuizFeedback').textContent='';
+    $('loveQuizNext').hidden=true;
+    var box=$('loveQuizOptions');box.innerHTML='';
+    item.o.forEach(function(option,index){
+      var b=document.createElement('button');b.type='button';b.textContent=option;
+      b.onclick=function(){
+        if(box.dataset.answered==='yes')return;
+        box.dataset.answered='yes';b.classList.add('selected');
+        $('loveQuizFeedback').textContent=item.reply;
+        Array.from(box.querySelectorAll('button')).forEach(function(x){x.disabled=true});
+        if(loveQi===loveQuestions.length-1){
+          $('loveQuizNext').hidden=false;
+          $('loveQuizContinue').textContent='Go to your next surprise 💜';
+        }else{
+          $('loveQuizNext').hidden=false;
+          $('loveQuizContinue').textContent='Next question →';
+        }
+      };
+      box.appendChild(b);
+    });
+    box.dataset.answered='no';
+  }
+  $('loveQuizContinue').onclick=function(){
+    if(loveQi<loveQuestions.length-1){loveQi++;renderLoveQuestion()}
+    else{
+      $('loveQuizNext').hidden=true;$('loveQuizOptions').hidden=true;
+      $('loveQuizQuestion').hidden=true;$('loveQuizProgress').hidden=true;
+      $('loveQuizFeedback').hidden=true;$('loveQuizResult').hidden=false;
+      confetti();
+      var reset=function(){
+        $('loveQuizOptions').hidden=false;$('loveQuizQuestion').hidden=false;
+        $('loveQuizProgress').hidden=false;$('loveQuizFeedback').hidden=false;
+        $('loveQuizContinue').textContent='Finish our little games 💜';
+        startRating();
+      };
+      $('loveQuizResult').onclick=reset;
+      $('loveQuizResult').style.cursor='pointer';
+      $('loveQuizResult').insertAdjacentHTML('beforeend','<button type="button" class="ghost" id="goRating">Continue →</button>');
+      $('goRating').onclick=function(e){e.stopPropagation();reset()};
+    }
+  };
 
   // Rate your coach: any star gives 5
   function startRating(){
@@ -781,14 +1140,14 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
     b.onclick=function(){
       document.querySelectorAll('.wbtn').forEach(function(x){x.disabled=true});
       b.style.borderColor='var(--gold)';b.style.color='var(--gold)';
-      $('planTxt').textContent=name+' · First class: '+b.textContent;
+      $('planTxt').textContent=name+' · Second class: '+b.textContent;
       $('plan').hidden=false;
       setTimeout(function(){$('forever').hidden=false;confetti()},900);
     };
   });
   $('pcont').onclick=function(){
     resetFinale();
-    $('fin').textContent='Slot confirmed, '+name+' 🏏';
+    $('fin').textContent='Second class booked, '+name+' 🏏';
     show('s4');confetti();initScratch();typeLetter();
   };
   var ltimer;
@@ -797,6 +1156,43 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
     var el=$('letter'),i=0;el.textContent='';clearInterval(ltimer);
     ltimer=setInterval(function(){el.textContent=t.slice(0,++i);if(i>=t.length)clearInterval(ltimer)},45);
   }
+
+
+  // Extra gallery, memory notes and question reveals
+  $('openPromise').addEventListener('click',function(){
+    var reveal=$('promiseReveal');
+    reveal.hidden=!reveal.hidden;
+    $('openPromise').textContent=reveal.hidden?'Open your little promise 💗':'Keep this promise close ❤️';
+  });
+  $('memoryUpload').addEventListener('change',function(e){
+    var files=Array.from(e.target.files||[]);
+    if(!files.length)return;
+    var gallery=$('memoryGallery');
+    gallery.innerHTML='';
+    files.forEach(function(file,index){
+      if(!file.type.startsWith('image/'))return;
+      var figure=document.createElement('figure');
+      figure.className='memory-photo';
+      var img=document.createElement('img');
+      img.src=URL.createObjectURL(file);
+      img.alt='Our memory '+(index+1);
+      var caption=document.createElement('figcaption');
+      caption.textContent='Memory '+(index+1);
+      figure.appendChild(img);figure.appendChild(caption);gallery.appendChild(figure);
+    });
+  });
+  document.querySelectorAll('.love-note button').forEach(function(button){
+    button.addEventListener('click',function(){
+      button.parentElement.classList.toggle('open');
+    });
+  });
+  document.querySelectorAll('.future-reveal').forEach(function(button){
+    button.addEventListener('click',function(){
+      var answer=button.parentElement.querySelector('.future-answer');
+      answer.hidden=!answer.hidden;
+      button.textContent=answer.hidden?"Open Rishi's thought":"Close note";
+    });
+  });
 
   // Floating hearts
   setInterval(function(){
