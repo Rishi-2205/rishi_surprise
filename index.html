@@ -44,6 +44,33 @@
 .love-quiz-options button.selected{border-color:var(--gold);background:#3a1d70}
 .love-quiz-result{padding:18px 14px;border-radius:15px;background:linear-gradient(145deg,#4b247d,#241246);border:1px solid var(--gold);text-align:center;display:flex;flex-direction:column;gap:10px}
 .love-quiz-result p{color:var(--fg)}
+
+/* Cute apology-to-kiss contract */
+
+.contract-poster{margin-top:14px;padding:18px 14px;border-radius:18px;color:#542747;text-align:center;background:radial-gradient(circle at 50% 0%,#ffe4f1,#ffd3c2 48%,#f8c6dd);border:3px double #b75b83;box-shadow:0 8px 24px rgba(0,0,0,.22);position:relative;overflow:hidden}
+.contract-poster:before,.contract-poster:after{content:"♡  ✦  ♡  ✦  ♡";display:block;color:#b34f7b;letter-spacing:.22em;font-size:14px}
+.contract-poster h2{font-family:var(--display);font-size:clamp(25px,7vw,34px);color:#6e2855;margin:10px 0}
+.contract-poster .poster-sub{font-size:13px;color:#7e4667}
+.contract-poster .poster-details{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}
+.contract-poster .poster-detail{padding:9px 6px;background:rgba(255,255,255,.48);border:1px solid rgba(145,62,105,.25);border-radius:10px;font-size:13px;color:#63314f;overflow-wrap:anywhere}
+.contract-poster .poster-detail b{display:block;color:#8d315f;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.contract-poster .poster-package{padding:12px;border:1px dashed #a94476;border-radius:12px;background:rgba(255,255,255,.42);margin:12px 0}
+.contract-poster .poster-package strong{display:block;font-family:var(--display);font-size:20px;color:#8d315f}
+.contract-poster .poster-sign{display:flex;justify-content:space-between;gap:8px;margin-top:18px;border-top:1px solid #b75b83;padding-top:10px;font-family:var(--display);font-style:italic}
+.contract-poster .poster-foot{font-size:12px;color:#7e4667;margin-top:12px}
+
+.contract-paper{background:linear-gradient(155deg,#fff8fc,#f8eaff);color:#3b174f;border:2px dashed #d77bb5;border-radius:18px;padding:18px 16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.contract-paper h2,.contract-paper h3{color:#762d75;text-align:center}
+.contract-paper p,.contract-paper li{color:#57345f}
+.contract-paper .contract-stamp{align-self:center;border:2px solid #bd5596;color:#a02f78;border-radius:9px;padding:5px 12px;font-weight:900;letter-spacing:.1em;transform:rotate(-4deg)}
+.contract-paper .contract-sign-row{border-top:1px solid #d9b6d7;padding-top:10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px}
+.contract-fields{display:flex;flex-direction:column;gap:12px}
+.contract-fields label{display:flex;flex-direction:column;gap:6px;color:var(--muted)}
+.contract-fields input{font-size:16px}
+.contract-check{display:flex;align-items:flex-start;gap:10px;color:var(--fg);font-size:14px}
+.contract-check input{width:auto;margin-top:4px}
+.contract-small{font-size:12px;color:#755b7d!important;text-align:center}
+
 @media(max-width:360px){.memory-grid{grid-template-columns:1fr}}
 
 </style></head><body>
@@ -356,6 +383,90 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
     </div>
   </section>
 
+  <section class="stage" id="sorryContract" hidden>
+    <div class="welcome-mark" aria-hidden="true">💋📜</div>
+    <span class="tag">A very serious… not-so-serious agreement</span>
+    <h2>Preethi's Sorry-to-Kiss Contract 💗</h2>
+    <p>Oru chinna contract. Nee evlo thadava “sorry” and “manichidu” sonna nu enakku count eh theriyadhu… so unakku special <b>UNLIMITED PACKAGE</b> ready pannirukken! 🤭</p>
+
+    <div class="contract-paper" id="contractPaper">
+      <div class="contract-stamp">OFFICIAL LOVE CONTRACT</div>
+      <h2>THE “SORRY? KISS!” AGREEMENT 💋</h2>
+      <p style="text-align:center"><b>Between:</b> Preethi Joe & Rishi</p>
+      <p>This tiny agreement is made with lots of love, konjam kurumbu, and unlimited smiles.</p>
+      <h3>Terms & Conditions</h3>
+      <ol>
+        <li>“Sorry” and “Manichidu” sollumbodhu, repeated-ah 1000 times solla vendam. One sincere sorry is enough. 🥹</li>
+        <li>Adhukku badhila, both comfortable-ah irundhaa, one sweet kiss can be the bonus apology. 💋</li>
+        <li>Sorry count evlo nu enakku theriyadhu… so unakku <b>UNLIMITED SORRY-TO-KISS PACKAGE</b>! No expiry date. 😂</li>
+        <li>Big mistakes-ku kiss mattum solution illa. Honest-ah pesanum, purinjukanum, and actions-la change kaattanum. ❤️</li>
+        <li>Kiss is always optional. Rendu perukkum comfortable-ah irundhaa mattum. No pressure, only love and consent. 🫶</li>
+        <li>Extra clause: One cute pout, one hug, or one “Heyyyy” can also be accepted as a bonus. 🤭</li>
+      </ol>
+      <p style="text-align:center"><b>Contract motto:</b><br>“Sorry sollu… aana adha vida adhigama smile pannu.” 💜</p>
+      <div class="contract-sign-row">
+        <span>Preethi's signature: <b id="contractSignatureDisplay">Awaiting signature…</b></span>
+        <span>Date: <b id="contractDateDisplay">Not selected</b></span>
+        <span>Time: <b id="contractTimeDisplay">Not selected</b></span>
+      </div>
+      <p class="contract-small">Signed with love, laughter, and mutual consent. This is a cute keepsake, not a real legal contract.</p>
+    </div>
+
+    <div class="contract-fields" id="contractFields">
+      <label for="contractSignature">Type your signature (your cute name is okay!)</label>
+      <input id="contractSignature" type="text" maxlength="40" placeholder="Preethi Joe ✍️" autocomplete="off">
+      <label for="contractDate">Choose your kiss-collection date 📅</label>
+      <input id="contractDate" type="date">
+      <label for="contractTime">Choose your preferred time ⏰</label>
+      <input id="contractTime" type="time">
+      <label for="contractPackage">Choose your sorry-to-kiss package 💋</label>
+      <select id="contractPackage">
+        <option value="Basic Kiss Package" data-perk="1 sincere sorry · 1 optional kiss · 1 cute hug bonus">Basic Kiss Package · Simple & sweet</option>
+        <option value="Beach Moment Package" data-perk="5 sorrys = 10 optional kisses · unlimited hugs · extra pout bonus">Beach Moment Package · Extra romantic</option>
+        <option value="Unlimited Love Package" data-perk="Unlimited sorry-to-kiss moments · unlimited hugs · no expiry">Unlimited Love Package · No expiry 😅</option>
+      </select>
+      <label for="contractDuration">Choose your package duration</label>
+      <select id="contractDuration">
+        <option value="One sweet day">One sweet day</option>
+        <option value="Until our next meet">Until our next meet</option>
+        <option value="Lifetime ♡">Lifetime ♡</option>
+      </select>
+      <label for="contractLocation">Where should this little moment happen?</label>
+      <input id="contractLocation" type="text" maxlength="60" placeholder="The Beach ♡">
+      <label class="contract-check"><input id="contractAgree" type="checkbox"> I read this very important silly contract, and I agree — only to the things I feel comfortable with. 💗</label>
+    </div>
+    <button id="signContract" type="button">Sign our cute contract 💋</button>
+    <p class="fb" id="contractFeedback"></p>
+    <div id="signedContractActions" hidden>
+      <p class="note">Contract signed! 🥹 Your personalised poster is ready using the choices you made. Take a screenshot and send it to Rishi. 📸</p>
+      <div class="contract-poster" id="personalContractPoster">
+        <div class="poster-sub">A LITTLE PROMISE, SEALED WITH LOVE</div>
+        <h2>Sorry to Kiss Contract ♡</h2>
+        <div>Forever in this moment 💋</div>
+        <div class="poster-details">
+          <div class="poster-detail"><b>Date</b><span id="posterDate"></span></div>
+          <div class="poster-detail"><b>Time</b><span id="posterTime"></span></div>
+          <div class="poster-detail"><b>Duration</b><span id="posterDuration"></span></div>
+          <div class="poster-detail"><b>Place</b><span id="posterLocation"></span></div>
+        </div>
+        <div class="poster-package">
+          <div>HER SELECTED PACKAGE</div>
+          <strong id="posterPackage"></strong>
+          <p id="posterPerks"></p>
+        </div>
+        <div>“Sorry / Manichidu” ku badhila, lots of love and optional kisses. 💗</div>
+        <div class="poster-sign">
+          <span>Her signature ♡<br><b id="posterSignature"></b></span>
+          <span>Made by Rishi ♡</span>
+        </div>
+        <div class="poster-foot">A cute keepsake — every kiss is always by mutual choice. ♡</div>
+      </div>
+      <button id="contractScreenshotHint" class="ghost" type="button">How do I take the screenshot?</button>
+      <p id="contractScreenshotHelp" class="fb" hidden>Phone: press Power + Volume Down. Computer: use Win + Shift + S (Windows) or Shift + Command + 4 (Mac). Capture the signed contract above and send it to Rishi. 💜</p>
+      <button id="contractContinue" type="button">Contract accepted… continue 💞</button>
+    </div>
+  </section>
+
   <section class="stage" id="srt" hidden>
     <span class="tag">Feedback form</span>
     <h2>Rate your coach ⭐</h2>
@@ -523,7 +634,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
 (function(){
   var $=function(id){return document.getElementById(id)};
   var name='';
-  function show(id){['welcome','firstClassReview','s1','s2','sq','hardIntro','thirdIntro','s3','sg','sg2','sm','loveTap','loveQuiz','srt','sr','sp','s4'].forEach(function(s){$(s).hidden=s!==id});window.scrollTo(0,0)}
+  function show(id){['welcome','firstClassReview','s1','s2','sq','hardIntro','thirdIntro','s3','sg','sg2','sm','loveTap','loveQuiz','sorryContract','srt','sr','sp','s4'].forEach(function(s){$(s).hidden=s!==id});window.scrollTo(0,0)}
 
   $('openWelcome').onclick=function(){show('firstClassReview')};
 
@@ -945,7 +1056,7 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
         $('loveQuizOptions').hidden=false;$('loveQuizQuestion').hidden=false;
         $('loveQuizProgress').hidden=false;$('loveQuizFeedback').hidden=false;
         $('loveQuizContinue').textContent='Finish our little games 💜';
-        startRating();
+        startContract();
       };
       $('loveQuizResult').onclick=reset;
       $('loveQuizResult').style.cursor='pointer';
@@ -953,6 +1064,62 @@ button.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--
       $('goRating').onclick=function(e){e.stopPropagation();reset()};
     }
   };
+
+  // Cute, consent-first sorry-to-kiss contract.
+  function startContract(){
+    show('sorryContract');
+    $('contractFields').hidden=false;
+    $('signContract').hidden=false;
+    $('signedContractActions').hidden=true;
+    $('contractFeedback').textContent='';
+    $('contractSignature').value='';
+    $('contractDate').value='';
+    $('contractTime').value='';
+    $('contractPackage').value='Basic Kiss Package';
+    $('contractDuration').value='One sweet day';
+    $('contractLocation').value='';
+    $('contractAgree').checked=false;
+    $('contractSignatureDisplay').textContent='Awaiting signature…';
+    $('contractDateDisplay').textContent='Not selected';
+    $('contractTimeDisplay').textContent='Not selected';
+    var now=new Date();
+    var localToday=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,10);
+    $('contractDate').min=localToday;
+  }
+  $('signContract').onclick=function(){
+    var signature=$('contractSignature').value.trim();
+    var date=$('contractDate').value;
+    var time=$('contractTime').value;
+    var packageSelect=$('contractPackage');
+    var packageName=packageSelect.value;
+    var packagePerks=packageSelect.options[packageSelect.selectedIndex].getAttribute('data-perk')||'A sweet moment, chosen by you';
+    var duration=$('contractDuration').value;
+    var location=$('contractLocation').value.trim()||'A place picked by us ♡';
+    if(!signature||!date||!time||!$('contractAgree').checked){
+      $('contractFeedback').textContent='Signature, date, time, and agreement checkbox ellam fill pannu, madam. Appo dhaan official-ah sign aagum! 🤭';
+      return;
+    }
+    var dateParts=date.split('-');
+    $('contractSignatureDisplay').textContent=signature;
+    $('contractDateDisplay').textContent=dateParts[2]+'/'+dateParts[1]+'/'+dateParts[0];
+    $('contractTimeDisplay').textContent=time;
+    $('posterDate').textContent=dateParts[2]+'/'+dateParts[1]+'/'+dateParts[0];
+    $('posterTime').textContent=time;
+    $('posterDuration').textContent=duration;
+    $('posterLocation').textContent=location;
+    $('posterPackage').textContent=packageName;
+    $('posterPerks').textContent=packagePerks;
+    $('posterSignature').textContent=signature;
+    $('contractFields').hidden=true;
+    $('signContract').hidden=true;
+    $('signedContractActions').hidden=false;
+    $('contractFeedback').textContent='Contract officially signed! Unlimited package activated… subject to mutual consent. 😂💋';
+    confetti();
+  };
+  $('contractScreenshotHint').onclick=function(){
+    $('contractScreenshotHelp').hidden=!$('contractScreenshotHelp').hidden;
+  };
+  $('contractContinue').onclick=function(){startRating()};
 
   // Rate your coach: any star gives 5
   function startRating(){
